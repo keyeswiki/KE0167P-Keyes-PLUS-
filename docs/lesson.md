@@ -3,7 +3,7 @@
 
 
 
-# 桌面迷你智能车课程
+# 智能小车课程
 
 传感器模块课程
 
@@ -47,7 +47,8 @@ LED显示颜色：红色
 
 项目代码：
 
-/\*
+```
+/*
 
 keyes 桌面迷你智能车
 
@@ -57,7 +58,7 @@ LED闪烁
 
 http://www.keyes-robot.com
 
-\*/
+*/
 
 void setup()
 
@@ -80,8 +81,7 @@ digitalWrite(9, LOW); // 熄灭LED
 delay(1000); // 等待一秒钟
 
 }
-
-//\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*
+```
 
 项目结果：
 
@@ -101,8 +101,8 @@ digitalWrite(9，HIGH) -
 ，现在我们来拓展一下思路，通过改变delay的时间来改变LED 灯闪烁的频率。
 
 代码如下:
-
-/\*
+```
+/*
 
 keyes 桌面迷你智能车
 
@@ -112,7 +112,7 @@ LED闪烁
 
 http://www.keyes-robot.com
 
-\*/
+*/
 
 void setup()
 
@@ -135,8 +135,7 @@ digitalWrite(9, LOW); // 熄灭LED
 delay(100); // 等待0.1秒钟
 
 }
-
-//\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*
+```
 
 怎么样是不是很好理解，就是通过改变delay
 这个代码的时间，来改变3脚LED亮和灭的频率，不多说，我们上传代码。看看这个LED灯闪烁的频率是不是比之前快了？
@@ -168,8 +167,8 @@ Arduino的PWM引脚在3，5，6，9，10，11,上一小节的接线刚刚好在9
 项目代码：
 
 我们来看Arduino代码:
-
-/\*
+```
+/*
 
 keyes 桌面迷你智能车
 
@@ -179,7 +178,7 @@ lesson 2.1
 
 http://www.keyes-robot.com
 
-\*/
+*/
 
 int ledPin = 9; // 定义LED接口为数字口9
 
@@ -193,7 +192,7 @@ pinMode (ledPin, OUTPUT); // 初始化led引脚为输出模式
 
 void loop () {
 
-for (value = 0; value \< 255; value = value + 1) {
+for (value = 0; value < 255; value = value + 1) {
 
 analogWrite (ledPin, value); //LED变量
 
@@ -201,7 +200,7 @@ delay (5); // 延迟5ms
 
 }
 
-for (value = 255; value \> 0; value = value - 1) {
+for (value = 255; value > 0; value = value - 1) {
 
 analogWrite (ledPin, value); // LED变暗
 
@@ -210,7 +209,7 @@ delay (5); // 延迟5ms
 }
 
 }
-
+```
 项目结果：
 
 代码下载完成后，我们可以看到LED会有个逐渐由亮到灭的一个缓慢过程，而不是直接的亮灭，如同呼吸一般，均匀变化。
@@ -235,11 +234,11 @@ for循环顺序如下：
 
 知道了这么个顺序之后，回到代码中：
 
-for (int value = 0; value \< 255; value=value+1){
+for (int value = 0; value < 255; value=value+1){
 
 ...}
 
-for (int value = 255; value \>0; value=value-1){
+for (int value = 255; value >0; value=value-1){
 
 ...}
 
@@ -271,8 +270,8 @@ PWM比较多的用于调节LED灯的亮度。或者是电机的转动速度，�
 项目拓展：
 
 我们不改变灯的脚位，只是改变程序里面delay的值，看看它如何改变渐变效果。
-
-/\*
+```
+/*
 
 keyes 桌面迷你智能车
 
@@ -282,7 +281,7 @@ lesson 2.2
 
 http://www.keyes-robot.com
 
-\*/
+*/
 
 int ledPin = 9; // 定义LED接口为数字口9
 
@@ -294,7 +293,7 @@ pinMode (ledPin, OUTPUT); // 初始化led引脚为输出模式
 
 void loop () {
 
-for (int value = 0; value \< 255; value = value + 1) {
+for (int value = 0; value < 255; value = value + 1) {
 
 analogWrite (ledPin, value); //LED变量
 
@@ -302,7 +301,7 @@ delay (30); // 延迟30ms
 
 }
 
-for (int value = 255; value \> 0; value = value - 1) {
+for (int value = 255; value > 0; value = value - 1) {
 
 analogWrite (ledPin, value); // LED变暗
 
@@ -311,8 +310,8 @@ delay (30); // 延迟30ms
 }
 
 }
+```
 
-//\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*
 
 上传代码到开发板，看LED渐变的效果是不是慢了一些。
 
@@ -326,7 +325,7 @@ delay (30); // 延迟30ms
 
 模块参数：
 
-3.  项目组件：
+项目组件：
 
 |控制板 * 1|Keyes brick L298P 电机驱动扩展板 V1*1|HX-2.54 3P 双头连接线*1|
 |-|-|-|
@@ -341,8 +340,8 @@ delay (30); // 延迟30ms
 ![](media/dbb9c7c2d1cee7aa816151f6e884a716.png)
 
 项目代码：
-
-/\*
+```
+/*
 
 keyes 桌面迷你智能车
 
@@ -352,7 +351,7 @@ lesson 3.1
 
 http://www.keyes-robot.com
 
-\*/
+*/
 
 int beeppin = 3; //定义蜂鸣器引脚为D3
 
@@ -364,7 +363,7 @@ pinMode(beeppin, OUTPUT); //设置buzzer为输出模式
 
 void loop() {
 
-for (int i = 0; i \< 100; i++) { //1ms方波驱动输出一个频率的声音
+for (int i = 0; i < 100; i++) { //1ms方波驱动输出一个频率的声音
 
 digitalWrite(beeppin, HIGH);
 
@@ -376,7 +375,7 @@ delay(1);
 
 }
 
-for (int i = 0; i \< 100; i++) { //2ms方波驱动输出另一个频率的声音
+for (int i = 0; i < 100; i++) { //2ms方波驱动输出另一个频率的声音
 
 digitalWrite(beeppin, HIGH);
 
@@ -389,8 +388,8 @@ delay(2);
 }
 
 }
+```
 
-//\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*
 
 项目结果：
 
@@ -455,8 +454,8 @@ delay(2);
 第五，有的两个连续的音符上面带弧线，表示连音，可以稍微改下连音后面那个音的频率，比如减少或增加一些数值（需自己调试），这样表现会更流畅，其实不做处理，影响也不大。
 
 下面，看具体代码：
-
-/\*
+```
+/*
 
 keyes 桌面迷你智能车
 
@@ -466,67 +465,67 @@ lesson 3.2
 
 http://www.keyes-robot.com
 
-\*/
+*/
 
-\#define D0 -1
+#define D0 -1
 
-\#define D1 262
+#define D1 262
 
-\#define D2 293
+#define D2 293
 
-\#define D3 329
+#define D3 329
 
-\#define D4 349
+#define D4 349
 
-\#define D5 392
+#define D5 392
 
-\#define D6 440
+#define D6 440
 
-\#define D7 494
+#define D7 494
 
-\#define M1 523
+#define M1 523
 
-\#define M2 586
+#define M2 586
 
-\#define M3 658
+#define M3 658
 
-\#define M4 697
+#define M4 697
 
-\#define M5 783
+#define M5 783
 
-\#define M6 879
+#define M6 879
 
-\#define M7 987
+#define M7 987
 
-\#define H1 1045
+#define H1 1045
 
-\#define H2 1171
+#define H2 1171
 
-\#define H3 1316
+#define H3 1316
 
-\#define H4 1393
+#define H4 1393
 
-\#define H5 1563
+#define H5 1563
 
-\#define H6 1755
+#define H6 1755
 
-\#define H7 1971
+#define H7 1971
 
 //列出全部D调的频率
 
-\#define WHOLE 1
+#define WHOLE 1
 
-\#define HALF 0.5
+#define HALF 0.5
 
-\#define QUARTER 0.25
+#define QUARTER 0.25
 
-\#define EIGHTH 0.25
+#define EIGHTH 0.25
 
-\#define SIXTEENTH 0.625
+#define SIXTEENTH 0.625
 
 //列出所有节拍
 
-int tune\[\] = //根据简谱列出各频率
+int tune[] = //根据简谱列出各频率
 
 {
 
@@ -564,7 +563,7 @@ M2, M1, M1
 
 };
 
-float durt\[\] = //根据简谱列出各节拍
+float durt[] = //根据简谱列出各节拍
 
 {
 
@@ -620,13 +619,13 @@ void loop()
 
 {
 
-for (int x = 0; x \< length; x++)
+for (int x = 0; x < length; x++)
 
 {
 
-tone(tonepin, tune\[x\]);
+tone(tonepin, tune\[x]);
 
-delay(500 \* durt\[x\]);
+delay(500 * durt\[x]);
 //这里用来根据节拍调节延时，500这个指数可以自己调整，在该音乐中，用500比较合适。
 
 noTone(tonepin);
@@ -636,8 +635,7 @@ noTone(tonepin);
 delay(2000);
 
 }
-
-
+```
 上传代码到开发板，怎么样，你的欢乐女神响起了没有？
 
 ## 第4课 红外避障传感器实验 
@@ -675,8 +673,8 @@ delay(2000);
 接线注意：用导线把左边的避障传感器连接到电机驱动扩展板上的接口（G、V、A1），右边的避障传感器连接到接口（G、V、A2），模拟口在数字口不够的情况下，模拟口也可以当数字口使用，模拟口A0相当于数字口14，A1相当于数字口15，以此类推。
 
 项目代码：
-
-/\*
+```
+/*
 
 keyes 桌面迷你智能车
 
@@ -686,7 +684,7 @@ lesson 4.1
 
 http://www.keyes-robot.com
 
-\*/
+*/
 
 int l_sensorPin = A1; //定义左边避障传感器接A1
 
@@ -709,7 +707,7 @@ Serial.print("l_val="); //在串口打印出来
 Serial.println(l_val);
 
 }
-
+```
 项目结果：
 
 实验中我们利用USB线供电，上传好测试代码，打开串口监视器，设置波特率为9600，当我们接近避障传感器时信号端输出低电平，如下图：
@@ -729,8 +727,8 @@ Serial.println(l_val);
 项目拓展：
 
 ![](media/6d38f9479173a4d478d161ded7889735.png)
-
-/\*
+```
+/*
 
 keyes 桌面迷你智能车
 
@@ -740,7 +738,7 @@ lesson 4.2
 
 http://www.keyes-robot.com
 
-\*/
+*/
 
 int l_sensorPin = A1;
 
@@ -781,7 +779,7 @@ digitalWrite(led, LOW);
 }
 
 }
-
+```
 当传感器检测到障碍物（输出0）时，外接LED模块LED亮起，否则LED熄灭。
 
 ## 第5课 循迹传感器 
@@ -831,8 +829,8 @@ KEYES三路循迹模块在一块板上集成了三个TCRT5000红外管，接线�
 循迹传感器接扩展板的D11、D7、D8引脚（左11，中7，右8）。
 
 项目代码：
-
-/\*
+```
+/*
 
 keyes 桌面迷你智能车
 
@@ -842,7 +840,7 @@ lesson 5.1
 
 http://www.keyes-robot.com
 
-\*/
+*/
 
 int L_pin = 11; //左边循迹传感器的引脚接数字口11
 
@@ -891,8 +889,7 @@ Serial.println(val_R);
 delay(500);// 延迟500ms
 
 }
-
-//\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*
+```
 
 项目结果：
 
@@ -916,8 +913,8 @@ digitalRead-读取引脚电平状态，一般有两种状态，HIGH或者LOW。
 ![](media/f00cfc10b587340b6c15cc3fdb4a24f9.png)
 
 我们开始来编写代码：
-
-/\*
+```
+/*
 
 keyes 桌面迷你智能车
 
@@ -927,7 +924,7 @@ lesson 5.2
 
 http://www.keyes-robot.com
 
-\*/
+*/
 
 int L_pin = 11; //左边循迹传感器的引脚接数字口11
 
@@ -990,7 +987,7 @@ digitalWrite(9, LOW);//LED 灯灭
 }
 
 }
-
+```
 上传代码到开发板，用我们的手去一个个的靠近传感器，我们看看LED灯的状态发生了改变没有？当我们用手去遮挡循迹传感器的时候，我们可以看到LED灯亮起来了。
 
 ## 第6课 超声波模块 
@@ -1010,11 +1007,11 @@ HC-SR04或超声波传感器被广泛用于创建障碍物检测和距离测量�
 
 电源：+ 5V DC
 
-静态电流：\<2mA
+静态电流：<2mA
 
 工作电流：15mA
 
-有效角度：\<15°
+有效角度：<15°
 
 测距范围：2cm – 400 cm
 
@@ -1035,9 +1032,9 @@ HC-SR04或超声波传感器被广泛用于创建障碍物检测和距离测量�
 超声波模块知识：
 
 原理：看超声波的图可知，像是有两个眼睛，其一边是发射超声的，一边是接收超声波的，然后检测从发射遇到障碍物返回被接收到所需的时间t，再根据声音在空气中的传播速度大概是343m/s,
-距离 = 速度 \* 时间 ，
+距离 = 速度 * 时间 ，
 由于超声波发射返回是两段路程了，所以需要除以2，故超声波测到的 距离
-=（速度 \* 时间）/2
+=（速度 * 时间）/2
 
 超声波模块的使用方法及时序图：
 
@@ -1061,8 +1058,8 @@ HC-SR04或超声波传感器被广泛用于创建障碍物检测和距离测量�
 ![](media/788ffcd562503cbf545d44e4a846474f.png)
 
 项目代码：
-
-/\*
+```
+/*
 
 keyes 桌面迷你智能车
 
@@ -1072,7 +1069,7 @@ lesson 6.1
 
 http://www.keyes-robot.com
 
-\*/
+*/
 
 int trigPin = 12; // Trig引脚接数字口12
 
@@ -1131,8 +1128,8 @@ Serial.println();
 delay(200);
 
 }
+```
 
-//\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*
 
 项目结果：
 
@@ -1165,8 +1162,8 @@ inches = (duration/2) / 74-
 我们刚刚测出了超声波显示的距离，那我们动动脑筋，能不能用测出的距离来做一些控制呢，如果控制一个LED灯的亮和灭。我们来试一下，在D9脚接上一个LED灯模块。
 
 ![](media/ffba41f075b252ca0110730775b31565.png)
-
-/\*
+```
+/*
 
 keyes 桌面迷你智能车
 
@@ -1176,7 +1173,7 @@ lesson 6.2
 
 http://www.keyes-robot.com
 
-\*/
+*/
 
 int trigPin = 12; // Trig引脚接数字口12
 
@@ -1234,7 +1231,7 @@ Serial.print("cm");
 
 Serial.println();
 
-if (cm \>= 2 && cm \<= 10) {//距离在2~10cm则点亮led
+if (cm >= 2 && cm <= 10) {//距离在2~10cm则点亮led
 
 digitalWrite(9, HIGH);
 
@@ -1249,8 +1246,8 @@ digitalWrite(9, LOW);//否则熄灭
 delay(50);
 
 }
-
-//\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*
+```
+//
 
 上传好测试代码到开发板，我们用手去靠近超声波传感器，看LED
 灯亮起来了没有。
@@ -1300,8 +1297,8 @@ delay(50);
 项目代码：
 
 在编写代码之前，要先导入红外的库文件，具体步骤请参考，（如何导入arduino库文件）这个文档。
-
-/\*
+```
+/*
 
 keyes 桌面迷你智能车
 
@@ -1311,9 +1308,9 @@ lesson 7.1
 
 http://www.keyes-robot.com
 
-\*/
+*/
 
-\#include \<IRremote.h\> // IRremote库声明
+#include <IRremote.h> // IRremote库声明
 
 int RECV_PIN = A3; //定义红外接收器的引脚为A3
 
@@ -1346,8 +1343,7 @@ irrecv.resume(); // 接收下一个值
 delay(100);
 
 }
-
-//\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*
+```
 
 项目结果：
 
@@ -1372,8 +1368,8 @@ irrecv.decode(&results)  解码成功，这个函数会返回true，并把结�
 我们刚刚解码了红外遥控器的按键值，那我们能不能用测出的按键值来做一些控制呢，如果控制一个LED灯的亮和灭。我们来试一下，在9脚接上一个LED灯模块。红外接收器的脚位不变,当有遥控器的按键按下时,接在数字引脚9上的发光LED就会点亮，再按一下按键，led熄灭，接线图如下：
 
 ![](media/101d6f51c8fa4a2bcf60a09eaf997c2d.png)
-
-/\*
+```
+/*
 
 keyes 桌面迷你智能车
 
@@ -1383,9 +1379,9 @@ lesson 7.2
 
 http://www.keyes-robot.com
 
-\*/
+*/
 
-\#include \<IRremote.h\>
+#include <IRremote.h>
 
 int RECV_PIN = A3;//定义红外接收器的引脚为A3
 
@@ -1441,8 +1437,7 @@ irrecv.resume(); // 接收下一个值
 }
 
 }
-
-//\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*
+```
 
 上传代码带开发板,当遥控器按下OK按键时,LED就会亮，再按一下LED就会灭,同时电脑的串口会出现按键的命令编码.
 
@@ -1499,8 +1494,8 @@ irrecv.resume(); // 接收下一个值
 蓝牙是直接插在电机驱动扩展板上的，注意一下方向，而且在上传代码之前不要插上蓝牙。
 
 项目代码：
-
-/\*
+```
+/*
 
 keyes 桌面迷你智能车
 
@@ -1510,7 +1505,7 @@ lesson 8.1
 
 http://www.keyes-robot.com
 
-\*/
+*/
 
 char ble_val; //字符变量，用于存放蓝牙接收到的值
 
@@ -1522,7 +1517,7 @@ Serial.begin(9600);
 
 void loop() {
 
-if (Serial.available() \> 0) //判断串口缓存区是否有数据
+if (Serial.available() > 0) //判断串口缓存区是否有数据
 
 {
 
@@ -1533,8 +1528,7 @@ Serial.println(ble_val); //打印出来
 }
 
 }
-
-//\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*
+```
 
 （上传代码之前不要连接蓝牙模块，因为代码的上传也是用的串口通信，跟蓝牙的串口通信会有冲突，导致代码上传不成功）
 
@@ -1544,14 +1538,14 @@ Serial.println(ble_val); //打印出来
 
 刚刚的代码是读取串口的接收到的信号，那么我们还需要一个能够发出信号的东西，我们项目中就用手机来发送字符，蓝牙接收到手机软件发出的字符信号，在开发板的串口打印出来。我们还要在手机上下载一个APP。
 
-1\. 苹果手机下载APP 方法：
+1.苹果手机下载APP 方法：
 
 首先到苹果的应用商店APP STORE, 搜索 BLE Scammer 4.0,
 找到这个应用，然后下载到手机
 
 ![](media/dc1e376ec6b46f2b794a7f6fb8ce4515.png)
 
-2\. 安卓手机下载APP 方法
+2.安卓手机下载APP 方法
 
 首先到谷歌的应用商店, 搜索 BLE Scanner 找到这个应用，然后下载到手机
 
@@ -1565,30 +1559,30 @@ Serial.println(ble_val); //打印出来
 
 ![](media/775ea689dfbe0105385bec175c50f1dd.png)
 
-5.在完成与HMSoft的连接后，单击它，您将获得许多选项，如设备信息，通用访问权限，通用属性，自定义服务。
+6.在完成与HMSoft的连接后，单击它，您将获得许多选项，如设备信息，通用访问权限，通用属性，自定义服务。
 在所有这些选项中，单击“定制服务”。![](media/c96a93021bc5cf13bb92248c9db8096e.jpeg)
 
-6.选择了定制服务后，出现这样的一个界面
+7.选择了定制服务后，出现这样的一个界面
 
 ![](media/7042fa493b38c892017b5c614b8e72ef.png)
 
-7.  点击蓝色的（Read,Notify,WriteWithoutResponse),进入到下面这个界面
+8.点击蓝色的（Read,Notify,WriteWithoutResponse),进入到下面这个界面
 
 ![](media/75ab687acf596cc7d5c699a80b19effc.png)
 
-8.  点击Write Value,出现输入HEX     或者Text的界面![](media/9b7ee04c640aa786fabe60941a2d245f.png)
+9.点击Write Value,出现输入HEX     或者Text的界面![](media/9b7ee04c640aa786fabe60941a2d245f.png)
 
-9\.
-打开Arduino开发软件上的串口监测，我们在Text的界面输入一个0或者其他的字符
+
+10.打开Arduino开发软件上的串口监测，我们在Text的界面输入一个0或者其他的字符
 
 ![](media/fcc712c1584f4aec99a2c9424e3d9fb5.png)
 
-然后点击Write,看看串口监测是不是收到0的信号。![](media/262f36cbdfe27aec2b948d37957c2444.png)
+11.然后点击Write,看看串口监测是不是收到0的信号。![](media/262f36cbdfe27aec2b948d37957c2444.png)
 
 代码说明：
 
 Serial.available()
-的意思是：返回串口缓冲区中当前剩余的字符个数。一般用这个函数来判断串口的缓冲区有无数据，当Serial.available()\>0时，说明串口接收到了数据，可以读取；
+的意思是：返回串口缓冲区中当前剩余的字符个数。一般用这个函数来判断串口的缓冲区有无数据，当Serial.available()>0时，说明串口接收到了数据，可以读取；
 
 Serial.read()指从串口的缓冲区取出并读取一个Byte的数据，比如有设备通过串口向Arduino发送数据了，我们就可以用Serial.read()来读取发送的数据。
 
@@ -1597,8 +1591,8 @@ Serial.read()指从串口的缓冲区取出并读取一个Byte的数据，比如
 上面的项目，我们讲解了蓝牙接收到手机发送的信号并且在开发板的串口显示出来，那接下来我们就要想一下了，我们可以利用接收到的信号去做一些事情吗，答案是肯定的，我们这里就利用手机发送的命令去打开或者关闭一个LED灯。看接线图，在D9脚接了一个LED，
 
 ![](media/c84e7f248064b0bfccdd301aed84c87a.png)
-
-/\*
+```
+/*
 
 keyes 桌面迷你智能车
 
@@ -1608,7 +1602,7 @@ lesson 8.2
 
 http://www.keyes-robot.com
 
-\*/
+*/
 
 int ledpin = 9;
 
@@ -1659,8 +1653,7 @@ Serial.println("led off");
 }
 
 }
-
-//\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*
+```
 
 ![](media/47a1a49d58e6287dfbab30df6a62ff23.png)![](media/7ca5796ab9faf4a9513da8bf8d0c1104.png)点击手机APP
 上的Write并发送1或和0以控制LED。当您发送\`\`1''时，LED将打开，而当您发送\`\`0''时，LED将关闭。
@@ -1685,13 +1678,13 @@ L298P是ST意法半导体公司出品的优秀大功率电机专用驱动芯片�
 
 驱动部分输入电压：DC 7-12V
 
-逻辑部分工作电流：\<36mA
+逻辑部分工作电流：<36mA
 
-驱动部分工作电流：\<2A
+驱动部分工作电流：<2A
 
 最大耗散功率：25W（T=75℃）
 
-控制信号输入电平：高电平2.3V\<Vin\<5V  ，低电平-0.3V\<Vin\<1.5V  
+控制信号输入电平：高电平2.3V<Vin<5V  ，低电平-0.3V<Vin<1.5V  
 工作温度：-25＋130℃
 
 驱动小车运行原理：
@@ -1719,8 +1712,8 @@ L298P是ST意法半导体公司出品的优秀大功率电机专用驱动芯片�
 ![](media/ce3856d8b76e0cc9366ede10e1b10e32.png)
 
 项目代码：
-
-/\*
+```
+/*
 
 keyes 桌面迷你智能车
 
@@ -1730,7 +1723,7 @@ lesson 9.1
 
 http://www.keyes-robot.com
 
-\*/
+*/
 
 int MA = 2; //定义电机A方向控制引脚为D2
 
@@ -1811,8 +1804,7 @@ analogWrite(PWMB, 0);
 delay(1000);
 
 }
-
-//\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*
+```
 
 项目结果：
 
@@ -1829,8 +1821,8 @@ analogWrite(PWMB,200);电机的速度调节是靠PWM来实现的，控制电机�
 项目拓展：
 
 我们来通过调整PWM控制电机的速度，为后面我们控制车速做一个铺垫，接线不变
-
-/\*
+```
+/*
 
 keyes 桌面迷你智能车
 
@@ -1840,7 +1832,7 @@ lesson 9.2
 
 http://www.keyes-robot.com
 
-\*/
+*/
 
 int MA = 2; //定义电机A方向控制引脚为D2
 
@@ -1921,8 +1913,7 @@ analogWrite(PWMB, 0);
 delay(1000);
 
 }
-
-//\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*
+```
 
 上传代码成功，怎么样，电机转动的速度是不是慢了很多？
 
@@ -1935,8 +1926,8 @@ delay(1000);
 ![](media/fee25d5b3baf85e7f7831c65a57f319a.png)
 
 前面我们学习了怎么使用功放与蓝牙模块，这节课我们用功放模块结合APP来自制一个简易钢琴。
-
-/\*
+```
+/*
 
 keyes 桌面迷你智能车
 
@@ -1946,7 +1937,7 @@ lesson 10.1
 
 http://www.keyes-robot.com
 
-\*/
+*/
 
 int beeppin = 3; // 蜂鸣器的pin
 
@@ -1954,53 +1945,53 @@ char blue_val;
 
 //低音
 
-\#define D0 -1
+#define D0 -1
 
-\#define D1 262
+#define D1 262
 
-\#define D2 293
+#define D2 293
 
-\#define D3 329
+#define D3 329
 
-\#define D4 349
+#define D4 349
 
-\#define D5 392
+#define D5 392
 
-\#define D6 440
+#define D6 440
 
-\#define D7 494
+#define D7 494
 
 //中音
 
-\#define M1 523
+#define M1 523
 
-\#define M2 586
+#define M2 586
 
-\#define M3 658
+#define M3 658
 
-\#define M4 697
+#define M4 697
 
-\#define M5 783
+#define M5 783
 
-\#define M6 879
+#define M6 879
 
-\#define M7 987
+#define M7 987
 
 //高音
 
-\#define H1 1045
+#define H1 1045
 
-\#define H2 1171
+#define H2 1171
 
-\#define H3 1316
+#define H3 1316
 
-\#define H4 1393
+#define H4 1393
 
-\#define H5 1563
+#define H5 1563
 
-\#define H6 1755
+#define H6 1755
 
-\#define H7 1971
+#define H7 1971
 
 //列出全部D调的频率
 
@@ -2016,7 +2007,7 @@ void loop(void)
 
 {
 
-if (Serial.available() \> 0) {
+if (Serial.available() > 0) {
 
 blue_val = Serial.read();
 
@@ -2047,7 +2038,7 @@ case 'S': noTone(beeppin); break; //接收到'S',停止播放
 }
 
 }
-
+```
 上传代码完成后再连接APP，当我们按下APP界面的DO,RE,MI...等键时，蜂鸣器就会响起对应的旋律，是不是很好玩？
 
 综合扩展2：基于Arduino的倒车雷达系统
@@ -2057,8 +2048,8 @@ case 'S': noTone(beeppin); break; //接收到'S',停止播放
 ![](media/498755c92a33d927433039dcdbc45662.png)
 
 这节课我们将把前面学习过的超声波传感器、蜂鸣器模块、LED灯模块结合起来做一个超声波雷达系统：
-
-/\*
+```
+/*
 
 keyes 桌面迷你智能车
 
@@ -2068,7 +2059,7 @@ lesson 10.2
 
 http://www.keyes-robot.com
 
-\*/
+*/
 
 int beeppin = 3; // 蜂鸣器的pin
 
@@ -2148,7 +2139,7 @@ void loop() {
 
 get_distance();
 
-if (distance \< 10) {
+if (distance < 10) {
 
 analogWrite(ledPin, 255); //距离近灯更亮
 
@@ -2156,7 +2147,7 @@ buzzer1(); //报警
 
 }
 
-else if (distance \< 20) {
+else if (distance < 20) {
 
 analogWrite(ledPin, 100); //没那么亮
 
@@ -2171,7 +2162,7 @@ analogWrite(ledPin, 0); //灯灭
 }
 
 }
-
+```
 我们用手靠近超声波传感器的时候，蜂鸣器会发出警报，led灯也会亮起。继续接近超声波时，蜂鸣器报警更急促了，led灯也更亮了。我们发现这里只是用到了超声波传感器来检测前面的障碍，那么左右两边的障碍物呢？这个就留给小伙伴们自己去完成了哈（提示：红外避障传感器）。
 
 桌面迷你智能车项目
@@ -2210,8 +2201,8 @@ analogWrite(ledPin, 0); //灯灭
 接线注意：用导线把循迹模块连接到电机驱动扩展板上P1接口的G、V、D11、D7、D8；A、B两电机分别对应的连接到电机驱动扩展板上的接口A和接口B，电源接到BAT接口。
 
 测试代码：
-
-/\*
+```
+/*
 
 keyes 桌面迷你智能车
 
@@ -2221,7 +2212,7 @@ lesson 11
 
 http://www.keyes-robot.com
 
-\*/
+*/
 
 int L_pin = 11; //定义左边传感器引脚为D11
 
@@ -2343,7 +2334,7 @@ delay(300);
 }
 
 }
-
+```
 测试结果：
 
 当小车行驶过程中检测到黑线立即撤退，然后左转继续行驶。
@@ -2386,8 +2377,8 @@ delay(300);
 接线注意：用导线把循迹模块连接到电机驱动扩展板上P1接口的G、V、D11、D7、D8；A、B两电机分别对应的连接到电机驱动扩展板上的接口A和接口B，电源接到BAT接口。
 
 测试代码：
-
-/\*
+```
+/*
 
 keyes 桌面迷你智能车
 
@@ -2397,7 +2388,7 @@ lesson 12
 
 http://www.keyes-robot.com
 
-\*/
+*/
 
 int L_pin = 11; //定义左边传感器引脚为D11
 
@@ -2546,7 +2537,7 @@ stopp();
 }
 
 }
-
+```
 测试结果：
 
 将驱动扩展板堆叠在UNO R3板上，上传好代码，按照接线图接线，将拨码开关拨至ON端后，智能车能够沿着黑线行走。
@@ -2589,8 +2580,8 @@ stopp();
 ![](media/8dd9cbfd04304e2b0825d8bef46c9d1f.png)
 
 测试代码：
-
-/\*
+```
+/*
 
 keyes 桌面迷你智能车
 
@@ -2600,7 +2591,7 @@ lesson 13
 
 http://www.keyes-robot.com
 
-\*/
+*/
 
 int trigPin = 12; //定义TRIG引脚接D12
 
@@ -2676,39 +2667,39 @@ l_val = digitalRead(l_sensorPin);//读取避障传感器的值
 
 r_val = digitalRead(r_sensorPin);
 
-if (distance \<= 7 || l_val == 0 && r_val == 0) {
+if (distance <= 7 || l_val == 0 && r_val == 0) {
 
 back();
 
 }
 
-else if (distance \> 7 && (l_val == 0 && r_val == 1)) {
+else if (distance > 7 && (l_val == 0 && r_val == 1)) {
 
 turnR();
 
 }
 
-else if (distance \> 7 && (l_val == 1 && r_val == 0)) {
+else if (distance > 7 && (l_val == 1 && r_val == 0)) {
 
 turnL();
 
 }
 
-else if ((distance \> 7 && distance \<= 15) && (l_val == 1 && r_val ==
+else if ((distance > 7 && distance <= 15) && (l_val == 1 && r_val ==
 1)) {
 
 stopp();
 
 }
 
-else if ((distance \> 15 && distance \<= 35) && (l_val == 1 && r_val ==
+else if ((distance > 15 && distance <= 35) && (l_val == 1 && r_val ==
 1)) {
 
 advance();
 
 }
 
-else if (distance \> 35 && (l_val == 1 && r_val == 1)) {
+else if (distance > 35 && (l_val == 1 && r_val == 1)) {
 
 stopp();
 
@@ -2771,7 +2762,7 @@ analogWrite(PWMA, 0); //电机A速度为0
 analogWrite(PWMB, 0); //电机B速度为0
 
 }
-
+```
 好了，
 桌面迷你蓝牙智能车跟随功能效果的代码全部编写好了，上传程序，看看精彩的效果！（在上传程序代码前，需要把蓝牙模块取下，否则代码会上传失败。需要上传代码成功后，再连接蓝牙模块。）
 
@@ -2815,8 +2806,8 @@ analogWrite(PWMB, 0); //电机B速度为0
 接线注意：A、B两电机分别对应的连接电机驱动扩展板上的接口A和接口B；超声波传感器模块的V引脚至V，T（Trig）引脚至数字12(S)，E（Echo）引脚至数字13(S)，G引脚至G；用导线把左边的避障传感器连接到电机驱动扩展板上的接口（G、V、A1），右边的避障传感器连接到接口（G、V、A2），电源接到BAT接口。功放模块接到（G，V，D3）
 
 测试代码
-
-/\*
+```
+/*
 
 keyes 桌面迷你智能车
 
@@ -2826,7 +2817,7 @@ lesson 14
 
 http://www.keyes-robot.com
 
-\*/
+*/
 
 int l_sensorPin = A1; //定义左边避障传感器接A1
 
@@ -2886,7 +2877,7 @@ l_val = digitalRead(l_sensorPin);//读取避障传感器的值
 
 r_val = digitalRead(r_sensorPin);
 
-if (distance \> 10) { //前方距离大于10cm时
+if (distance > 10) { //前方距离大于10cm时
 
 if (l_val == 1 && r_val == 1) { //如果左右两边都没有障碍物，前进
 
@@ -3054,7 +3045,7 @@ analogWrite(PWMA, 0); //电机A速度为0
 analogWrite(PWMB, 0); //电机B速度为0
 
 }
-
+```
 测试结果
 
 将驱动扩展板堆叠在UNO R3板上，上传好代码，按照课程三接线图接线，将拨码开关拨至ON端后，智能车能够自动避开障碍物行走。
@@ -3085,8 +3076,8 @@ analogWrite(PWMB, 0); //电机B速度为0
 ![](media/a83d29efa32c64740585a57f25501e28.png)
 
 测试代码：
-
-/\*
+```
+/*
 
 keyes 桌面迷你智能车
 
@@ -3096,9 +3087,9 @@ lesson 15
 
 http://www.keyes-robot.com
 
-\*/
+*/
 
-\#include \<IRremote.h\>
+#include <IRremote.h>
 
 int RECV_PIN = A3; //定义IO口A3
 
@@ -3215,7 +3206,7 @@ irrecv.resume();// 接收下个数据
 }
 
 }
-
+```
 好了，上传程序，红外遥控器对准红外接收器，按下红外遥控器对应按键，看看效果吧！（注意：在上传测试代码前，需要把蓝牙模块取下，否则测试代码会上传失败。需要上传代码成功后，再连接蓝牙模块。）
 
 测试结果：
@@ -3324,13 +3315,12 @@ irrecv.resume();// 接收下个数据
 ![](media/424365cd2edf75e91d9f6504b43db1df.png)
 
 接线注意：
-蓝牙模块的RXD、TXD、GND、VCC分别对应的接到电机驱动扩展板上的TX、RX、-（GND）、+（VCC），而蓝牙模块的STATE和BRK两引脚不需要接，电源接到BAT接口。
 
-1.  B两电机分别对应的连接到电机驱动扩展板上的接口A和接口B；蓝牙模块的RXD、TXD、GND、VCC分别对应的接到电机驱动扩展板上的TX、RX、-（GND）、+（VCC），而蓝牙模块的STATE和BRK两引脚不需要接，电源接到BAT接口。
+B两电机分别对应的连接到电机驱动扩展板上的接口A和接口B；蓝牙模块的RXD、TXD、GND、VCC分别对应的接到电机驱动扩展板上的TX、RX、-（GND）、+（VCC），而蓝牙模块的STATE和BRK两引脚不需要接，电源接到BAT接口。
 
 测试代码：
-
-/\*
+```
+/*
 
 keyes 桌面迷你智能车
 
@@ -3340,7 +3330,7 @@ lesson 16
 
 http://www.keyes-robot.com
 
-\*/
+*/
 
 int MA = 2; //定义电机A方向控制引脚为D2
 
@@ -3368,7 +3358,7 @@ pinMode(PWMB, OUTPUT);
 
 void loop() {
 
-if (Serial.available() \> 0) { //接收到蓝牙信号
+if (Serial.available() > 0) { //接收到蓝牙信号
 
 blue_val = Serial.read(); //接收到的信号赋给blue_val
 
@@ -3475,7 +3465,7 @@ analogWrite(PWMA, 0); //电机A速度为0
 analogWrite(PWMB, 0); //电机B速度为0
 
 }
-
+```
 好了，按住蓝牙APP的前进、后退、左转弯、右转弯、停止、左旋转、右旋转的按钮控制桌面迷你蓝牙智能车分别前进、后退、左转弯、右转弯、停止、左旋转、右旋转的程序代码全编写完了。上传程序，看看效果。（在上传测试代码前，需要把蓝牙模块取下，否则代码会上传失败。需要上传代码成功后，再连接蓝牙模块。）
 
 测试结果：
@@ -3501,8 +3491,8 @@ analogWrite(PWMB, 0); //电机B速度为0
 接线跟上一课一样
 
 测试代码：
-
-/\*
+```
+/*
 
 keyes 桌面迷你智能车
 
@@ -3512,7 +3502,7 @@ lesson 17
 
 http://www.keyes-robot.com
 
-\*/
+*/
 
 int MA = 2; //定义电机A方向控制引脚为D2
 
@@ -3542,7 +3532,7 @@ pinMode(PWMB, OUTPUT);
 
 void loop() {
 
-if (Serial.available() \> 0) { //接收到蓝牙信号
+if (Serial.available() > 0) { //接收到蓝牙信号
 
 blue_val = Serial.read(); //接收到的信号赋给blue_val
 
@@ -3662,7 +3652,7 @@ while (a_flag) {
 
 Serial.println(speeds); //显示速度
 
-if (speeds \< 255) { //最大增到255
+if (speeds < 255) { //最大增到255
 
 speeds++;
 
@@ -3686,7 +3676,7 @@ while (d_flag) {
 
 Serial.println(speeds); //显示速度
 
-if (speeds \> 0) { //最小减到0
+if (speeds > 0) { //最小减到0
 
 speeds--;
 
@@ -3701,7 +3691,7 @@ if (blue_val == 'S')d_flag = 0; //接收到‘S’停止减速
 }
 
 }
-
+```
 测试结果：
 
 按下![](media/2740fe0d77d25f085fc3b451bf25dbb3.png)按钮，小车前进；按下![](media/ca8a3980afa8612dfdb9ffb80ca6d8b8.png)按钮，小车后退；按下![](media/14b06c10620f28c4fb53762a8aa74b81.png)按钮，小车左旋转；按下![](media/697290c3419e904ce503804b4595aa08.png)按钮，小车右旋转；点击![](media/83699c2ea9fd69d1ed840d2f0a5513bc.png)按钮，小车停止；按下![](media/9c3fbf8f54b3b010c4da06e1462fbedf.png)按钮，小车往左转弯；按下![](media/202090cffd8253323341d7a2435023e6.png)按钮，小车往右转弯；按下![](media/f27ed3db743da4bbaa00f9c95dcd711b.png)按钮，小车加速；按下![](media/7e0e32c05e0a8e1279082373b2852a82.png)按钮，小车减速；点击一下![](media/9ef267210cfeedfd3070f22f0d14ad24.png)按钮，开启手机方向感应控制，再点击一下![](media/9ef267210cfeedfd3070f22f0d14ad24.png)按钮，退出方向感应控制。
@@ -3737,8 +3727,8 @@ if (blue_val == 'S')d_flag = 0; //接收到‘S’停止减速
 ![](media/c13828d7dc69243e5ee835e57087a26b.png)
 
 测试代码：
-
-/\*
+```
+/*
 
 keyes 桌面迷你智能车
 
@@ -3748,63 +3738,63 @@ lesson 18
 
 http://www.keyes-robot.com
 
-\*/
+*/
 
-\#define D0 -1
+#define D0 -1
 
-\#define D1 262
+#define D1 262
 
-\#define D2 293
+#define D2 293
 
-\#define D3 329
+#define D3 329
 
-\#define D4 349
+#define D4 349
 
-\#define D5 392
+#define D5 392
 
-\#define D6 440
+#define D6 440
 
-\#define D7 494
+#define D7 494
 
-\#define M1 523
+#define M1 523
 
-\#define M2 586
+#define M2 586
 
-\#define M3 658
+#define M3 658
 
-\#define M4 697
+#define M4 697
 
-\#define M5 783
+#define M5 783
 
-\#define M6 879
+#define M6 879
 
-\#define M7 987
+#define M7 987
 
-\#define H1 1045
+#define H1 1045
 
-\#define H2 1171
+#define H2 1171
 
-\#define H3 1316
+#define H3 1316
 
-\#define H4 1393
+#define H4 1393
 
-\#define H5 1563
+#define H5 1563
 
-\#define H6 1755
+#define H6 1755
 
-\#define H7 1971
+#define H7 1971
 
 //列出全部D调的频率
 
-\#define WHOLE 1
+#define WHOLE 1
 
-\#define HALF 0.5
+#define HALF 0.5
 
-\#define QUARTER 0.25
+#define QUARTER 0.25
 
-\#define EIGHTH 0.25
+#define EIGHTH 0.25
 
-\#define SIXTEENTH 0.625
+#define SIXTEENTH 0.625
 
 //列出所有节拍
 
@@ -3836,7 +3826,7 @@ float durt\[\] = //根据简谱列出各节拍
 
 };
 
-\#include \<IRremoteTank.h\> //导入红外的库
+\#include <IRremoteTank.h> //导入红外的库
 
 int RECV_PIN = A3; //定义IO口A3
 
@@ -3918,7 +3908,7 @@ irrecv.enableIRIn();// 使能红外接收
 
 void loop() {
 
-if (Serial.available() \> 0) { //接收到蓝牙信号
+if (Serial.available() > 0) { //接收到蓝牙信号
 
 blue_val = Serial.read(); //接收到的信号赋给blue_val
 
@@ -4089,7 +4079,7 @@ while (a_flag) {
 
 Serial.println(speeds); //显示速度
 
-if (speeds \< 255) { //最大增到255
+if (speeds < 255) { //最大增到255
 
 speeds++;
 
@@ -4113,7 +4103,7 @@ while (d_flag) {
 
 Serial.println(speeds); //显示速度
 
-if (speeds \> 0) { //最小减到0
+if (speeds > 0) { //最小减到0
 
 speeds--;
 
@@ -4177,39 +4167,39 @@ l_val = digitalRead(l_sensorPin);//读取避障传感器的值
 
 r_val = digitalRead(r_sensorPin);
 
-if (distance \<= 5 || l_val == 0 && r_val == 0) {
+if (distance <= 5 || l_val == 0 && r_val == 0) {
 
 back();
 
 }
 
-else if (distance \> 5 && (l_val == 0 && r_val == 1)) {
+else if (distance > 5 && (l_val == 0 && r_val == 1)) {
 
 turnR();
 
 }
 
-else if (distance \> 5 && (l_val == 1 && r_val == 0)) {
+else if (distance > 5 && (l_val == 1 && r_val == 0)) {
 
 turnL();
 
 }
 
-else if ((distance \> 5 && distance \<= 15) && (l_val == 1 && r_val ==
+else if ((distance > 5 && distance <= 15) && (l_val == 1 && r_val ==
 1)) {
 
 stopp();
 
 }
 
-else if ((distance \> 15 && distance \<= 35) && (l_val == 1 && r_val ==
+else if ((distance > 15 && distance <= 35) && (l_val == 1 && r_val ==
 1)) {
 
 advance();
 
 }
 
-else if (distance \> 35 && (l_val == 1 && r_val == 1)) {
+else if (distance > 35 && (l_val == 1 && r_val == 1)) {
 
 stopp();
 
@@ -4241,7 +4231,7 @@ l_val = digitalRead(l_sensorPin);//读取避障传感器的值
 
 r_val = digitalRead(r_sensorPin);
 
-if (distance \> 10) { //前方距离大于10cm时
+if (distance > 10) { //前方距离大于10cm时
 
 if (l_val == 1 && r_val == 1) { //如果左右两边都没有障碍物，前进
 
@@ -4451,7 +4441,7 @@ stopp();
 
 void play() {
 
-for (int x = 0; x \< length; x++)
+for (int x = 0; x < length; x++)
 
 {
 
@@ -4469,7 +4459,7 @@ if (blue_val == '9')break; //再次按下播放音乐键，停止播放
 }
 
 }
-
+```
 好了，蓝牙多功能控制智能车的程序都已经编写好了，上传程序，实际操作下看看效果。（在上传程序代码前，需要把蓝牙模块取下，否则代码会上传失败。需要上传代码成功后，再连接蓝牙模块。）
 
 测试结果：
