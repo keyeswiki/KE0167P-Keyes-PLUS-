@@ -1,10 +1,14 @@
 
 .. toctree::
    :maxdepth: 3
-   :caption: KE0167P Keyes套件 桌面 蓝牙 多功能智能小车 PLUS主板
+   :caption: KE0167P Keyes桌面蓝牙多功能智能小车
 
    README.md
-   docs/index
+   docs/introduce
+   docs/arduino
+   docs/install
+   docs/lesson
+   docs/question
 
 
 
