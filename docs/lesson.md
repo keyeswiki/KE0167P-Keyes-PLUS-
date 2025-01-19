@@ -1050,7 +1050,7 @@ HC-SR04或超声波传感器被广泛用于创建障碍物检测和距离测量�
 
 接线图：
 
-接线注意：超声波传感器模块的VCC引脚连接至keyestudio V5
+接线注意：超声波传感器模块的VCC引脚连接至keyes V5
 传感器扩展板的5v(V)，Trig引脚至数字12(S)，Echo引脚至数字13(S)，Gnd引脚至Gnd(G)。
 
 ![](media/788ffcd562503cbf545d44e4a846474f.png)
@@ -1288,7 +1288,7 @@ delay(50);
 
 接线图：
 
-接线注意：由于红外接收传感器输入的数字信号，将红外接收传感器模块的“-”、“+”和S引脚分别用导线连接到keyestudio传感器扩展板G（GND）、V（VCC）、A3，模拟口在数字口不够的情况下，模拟口也可以当数字口使用，模拟口A0相当于数字口14，A1相当于数字口15，以此类推。
+接线注意：由于红外接收传感器输入的数字信号，将红外接收传感器模块的“-”、“+”和S引脚分别用导线连接到keyes传感器扩展板G（GND）、V（VCC）、A3，模拟口在数字口不够的情况下，模拟口也可以当数字口使用，模拟口A0相当于数字口14，A1相当于数字口15，以此类推。
 
 ![](media/0172302a9974b4ede4035fd3e7825b19.png)
 
@@ -1699,7 +1699,7 @@ L298P是ST意法半导体公司出品的优秀大功率电机专用驱动芯片�
 
 项目组件：
 
-|控制板 * 1|Keyes brick L298P 电机驱动扩展板 V1*1|Keyestudio quick connectors 12FN20电机连接板A*1|Keyestudio quick connectors 12FN20电机连接板B*1|
+|控制板 * 1|Keyes brick L298P 电机驱动扩展板 V1*1|keyes quick connectors 12FN20电机连接板A*1|keyes quick connectors 12FN20电机连接板B*1|
 |-|-|-|-|
 |![](media/03b4fe43f6ca35637e7d80b57b8e67e3.png)|![](media/7ddd67a4441794c00c90215274df264e.png)|![](media/4bf5ba713f8a31c23209ab5b1c4bc84a.png)![](media/4bf5ba713f8a31c23209ab5b1c4bc84a.png)|
 |双头JST-PH2.0MM-2P*2|USB线|18650双节电池盒*1|18650电池*2 （电池自配）|
@@ -3286,7 +3286,7 @@ irrecv.resume();// 接收下个数据
 
 ![](media/af6836387c7ddd16faa20396439cf0dd.png)
 
-2.点击搜索，搜索keyestudio，下载搜索到的keyes BT car。
+2.点击搜索，搜索keyes，下载搜索到的keyes BT car。
 
 ![](media/6ca6b22d85030f744a22a61abb70c261.png)
 
