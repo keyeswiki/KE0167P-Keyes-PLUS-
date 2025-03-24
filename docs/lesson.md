@@ -178,34 +178,32 @@ http://www.keyes-robot.com
 
 */
 
-int ledPin = 9; // 定义LED接口为数字口9
+int ledPin = 9;  // 定义LED接口为数字口9
 
-int value;
+int value;  // 定义一个变量用于控制LED的亮度
 
-void setup () {
-
-pinMode (ledPin, OUTPUT); // 初始化led引脚为输出模式
-
+void setup() 
+{
+    pinMode(ledPin, OUTPUT);  // 初始化led引脚为输出模式
 }
 
-void loop () {
+void loop() 
+{
 
-for (value = 0; value < 255; value = value + 1) {
+    for (value = 0; value < 255; value = value + 1)  // LED逐渐变亮
+    {
+        analogWrite(ledPin, value);  // 使用PWM信号控制LED亮度
 
-analogWrite (ledPin, value); //LED变量
+        delay(5);  // 延迟5毫秒，使亮度变化更平滑
+    }
 
-delay (5); // 延迟5ms
 
-}
+    for (value = 255; value > 0; value = value - 1)  // LED逐渐变暗
+    {
+        analogWrite(ledPin, value);  // 使用PWM信号控制LED亮度
 
-for (value = 255; value > 0; value = value - 1) {
-
-analogWrite (ledPin, value); // LED变暗
-
-delay (5); // 延迟5ms
-
-}
-
+        delay(5);  // 延迟5毫秒，使亮度变化更平滑
+    }
 }
 ```
 项目结果：
@@ -283,30 +281,24 @@ http://www.keyes-robot.com
 
 int ledPin = 9; // 定义LED接口为数字口9
 
-void setup () {
-
-pinMode (ledPin, OUTPUT); // 初始化led引脚为输出模式
-
+void setup ()
+{
+    pinMode (ledPin, OUTPUT); // 初始化led引脚为输出模式
 }
 
-void loop () {
+void loop ()
+{
+    for (int value = 0; value < 255; value = value + 1)
+    {
+        analogWrite (ledPin, value); // LED变量
+        delay (30);                  // 延迟30ms
+    }
 
-for (int value = 0; value < 255; value = value + 1) {
-
-analogWrite (ledPin, value); //LED变量
-
-delay (30); // 延迟30ms
-
-}
-
-for (int value = 255; value > 0; value = value - 1) {
-
-analogWrite (ledPin, value); // LED变暗
-
-delay (30); // 延迟30ms
-
-}
-
+    for (int value = 255; value > 0; value = value - 1)
+    {
+        analogWrite (ledPin, value); // LED变暗
+        delay (30);                  // 延迟30ms
+    }
 }
 ```
 
@@ -351,40 +343,32 @@ http://www.keyes-robot.com
 
 */
 
-int beeppin = 3; //定义蜂鸣器引脚为D3
+int beeppin = 3; // 定义蜂鸣器引脚为D3
 
-void setup() {
-
-pinMode(beeppin, OUTPUT); //设置buzzer为输出模式
-
+void setup() 
+{
+    pinMode(beeppin, OUTPUT); // 设置蜂鸣器引脚为输出模式
 }
 
-void loop() {
+void loop() 
+{
+    // 第一个循环：产生1ms的方波，输出一个频率的声音
+    for (int i = 0; i < 100; i++) // 循环100次，产生100个周期
+    { 
+        digitalWrite(beeppin, HIGH); // 将蜂鸣器引脚设置为高电平
+        delay(1);                   // 保持高电平1ms
+        digitalWrite(beeppin, LOW);  // 将蜂鸣器引脚设置为低电平
+        delay(1);                   // 保持低电平1ms
+    }
 
-for (int i = 0; i < 100; i++) { //1ms方波驱动输出一个频率的声音
-
-digitalWrite(beeppin, HIGH);
-
-delay(1);
-
-digitalWrite(beeppin, LOW);
-
-delay(1);
-
-}
-
-for (int i = 0; i < 100; i++) { //2ms方波驱动输出另一个频率的声音
-
-digitalWrite(beeppin, HIGH);
-
-delay(2);
-
-digitalWrite(beeppin, LOW);
-
-delay(2);
-
-}
-
+    // 第二个循环：产生2ms的方波，输出另一个频率的声音
+    for (int i = 0; i < 100; i++) // 循环100次，产生100个周期
+    { 
+        digitalWrite(beeppin, HIGH); // 将蜂鸣器引脚设置为高电平
+        delay(2);                   // 保持高电平2ms
+        digitalWrite(beeppin, LOW);  // 将蜂鸣器引脚设置为低电平
+        delay(2);                   // 保持低电平2ms
+    }
 }
 ```
 
@@ -466,172 +450,94 @@ http://www.keyes-robot.com
 */
 
 #define D0 -1
-
 #define D1 262
-
 #define D2 293
-
 #define D3 329
-
 #define D4 349
-
 #define D5 392
-
 #define D6 440
-
 #define D7 494
-
 #define M1 523
-
 #define M2 586
-
 #define M3 658
-
 #define M4 697
-
 #define M5 783
-
 #define M6 879
-
 #define M7 987
-
 #define H1 1045
-
 #define H2 1171
-
 #define H3 1316
-
 #define H4 1393
-
 #define H5 1563
-
 #define H6 1755
-
 #define H7 1971
-
-//列出全部D调的频率
+// 列出全部D调的频率
 
 #define WHOLE 1
-
 #define HALF 0.5
-
 #define QUARTER 0.25
-
 #define EIGHTH 0.25
-
 #define SIXTEENTH 0.625
+// 列出所有节拍
 
-//列出所有节拍
-
-int tune[] = //根据简谱列出各频率
-
+int tune[] = // 根据简谱列出各频率
 {
-
-M3, M3, M4, M5,
-
-M5, M4, M3, M2,
-
-M1, M1, M2, M3,
-
-M3, M2, M2,
-
-M3, M3, M4, M5,
-
-M5, M4, M3, M2,
-
-M1, M1, M2, M3,
-
-M2, M1, M1,
-
-M2, M2, M3, M1,
-
-M2, M3, M4, M3, M1,
-
-M2, M3, M4, M3, M2,
-
-M1, M2, D5, D0,
-
-M3, M3, M4, M5,
-
-M5, M4, M3, M4, M2,
-
-M1, M1, M2, M3,
-
-M2, M1, M1
-
+    M3, M3, M4, M5,
+    M5, M4, M3, M2,
+    M1, M1, M2, M3,
+    M3, M2, M2,
+    M3, M3, M4, M5,
+    M5, M4, M3, M2,
+    M1, M1, M2, M3,
+    M2, M1, M1,
+    M2, M2, M3, M1,
+    M2, M3, M4, M3, M1,
+    M2, M3, M4, M3, M2,
+    M1, M2, D5, D0,
+    M3, M3, M4, M5,
+    M5, M4, M3, M4, M2,
+    M1, M1, M2, M3,
+    M2, M1, M1
 };
 
-float durt[] = //根据简谱列出各节拍
-
+float durt[] = // 根据简谱列出各节拍
 {
-
-1, 1, 1, 1,
-
-1, 1, 1, 1,
-
-1, 1, 1, 1,
-
-1 + 0.5, 0.5, 1 + 1,
-
-1, 1, 1, 1,
-
-1, 1, 1, 1,
-
-1, 1, 1, 1,
-
-1 + 0.5, 0.5, 1 + 1,
-
-1, 1, 1, 1,
-
-1, 0.5, 0.5, 1, 1,
-
-1, 0.5, 0.5, 1, 1,
-
-1, 1, 1, 1,
-
-1, 1, 1, 1,
-
-1, 1, 1, 0.5, 0.5,
-
-1, 1, 1, 1,
-
-1 + 0.5, 0.5, 1 + 1,
-
+    1, 1, 1, 1,
+    1, 1, 1, 1,
+    1, 1, 1, 1,
+    1 + 0.5, 0.5, 1 + 1,
+    1, 1, 1, 1,
+    1, 1, 1, 1,
+    1, 1, 1, 1,
+    1 + 0.5, 0.5, 1 + 1,
+    1, 1, 1, 1,
+    1, 0.5, 0.5, 1, 1,
+    1, 0.5, 0.5, 1, 1,
+    1, 1, 1, 1,
+    1, 1, 1, 1,
+    1, 1, 1, 0.5, 0.5,
+    1, 1, 1, 1,
+    1 + 0.5, 0.5, 1 + 1,
 };
 
 int length;
-
-int tonepin = 3; //用3号接口
+int tonepin = 3; // 用3号接口
 
 void setup()
-
 {
-
-pinMode(tonepin, OUTPUT);
-
-length = sizeof(tune) / sizeof(tune\[0\]); //计算长度
-
+    pinMode(tonepin, OUTPUT); // 设置蜂鸣器引脚为输出模式
+    length = sizeof(tune) / sizeof(tune[0]); // 计算音符数组的长度
 }
 
 void loop()
-
 {
-
-for (int x = 0; x < length; x++)
-
-{
-
-tone(tonepin, tune\[x]);
-
-delay(500 * durt\[x]);
-//这里用来根据节拍调节延时，500这个指数可以自己调整，在该音乐中，用500比较合适。
-
-noTone(tonepin);
-
-}
-
-delay(2000);
-
+    for (int x = 0; x < length; x++) // 遍历音符数组
+    {
+        tone(tonepin, tune[x]); // 播放当前音符
+        delay(500 * durt[x]);   // 根据节拍延时，500为调整参数
+        noTone(tonepin);       // 停止播放
+    }
+    delay(2000); // 每轮播放结束后延时2秒
 }
 ```
 上传代码到开发板，怎么样，你的欢乐女神响起了没有？
@@ -684,26 +590,20 @@ http://www.keyes-robot.com
 
 */
 
-int l_sensorPin = A1; //定义左边避障传感器接A1
+int l_sensorPin = A1; // 定义左边避障传感器接A1
+int l_val;            // 定义变量用于存储传感器读取的值
 
-int l_val;
-
-void setup() {
-
-Serial.begin(9600); //设置波特率为9600
-
-pinMode(l_sensorPin, INPUT);//将l_sensorPin设置为输入模式
-
+void setup() 
+{
+    Serial.begin(9600);              // 设置波特率为9600
+    pinMode(l_sensorPin, INPUT);     // 将l_sensorPin设置为输入模式
 }
 
-void loop() {
-
-l_val = digitalRead(l_sensorPin);//读取避障传感器的值
-
-Serial.print("l_val="); //在串口打印出来
-
-Serial.println(l_val);
-
+void loop() 
+{
+    l_val = digitalRead(l_sensorPin); // 读取避障传感器的值
+    Serial.print("l_val=");          // 在串口打印"l_val="
+    Serial.println(l_val);           // 在串口打印传感器读取的值并换行
 }
 ```
 项目结果：
@@ -738,44 +638,28 @@ http://www.keyes-robot.com
 
 */
 
-int l_sensorPin = A1;
+int l_sensorPin = A1; // 定义左边避障传感器接A1
+int led = 9;          // 定义LED引脚为数字口9
+int l_val;            // 定义变量用于存储传感器读取的值
 
-int led = 9;
-
-int l_val;
-
-void setup()
-
+void setup() 
 {
-
-pinMode(l_sensorPin, INPUT);
-
-pinMode(led , OUTPUT);
-
+    pinMode(l_sensorPin, INPUT);  // 将l_sensorPin设置为输入模式
+    pinMode(led, OUTPUT);         // 将led引脚设置为输出模式
 }
 
-void loop()
-
+void loop() 
 {
+    l_val = digitalRead(l_sensorPin); // 读取避障传感器的值
 
-l_val = digitalRead(l_sensorPin);
-
-if (l_val == 0)
-
-{
-
-digitalWrite(led, HIGH);
-
-}
-
-else
-
-{
-
-digitalWrite(led, LOW);
-
-}
-
+    if (l_val == 0) // 如果传感器检测到障碍（值为0）
+    {
+        digitalWrite(led, HIGH); // 点亮LED
+    }
+    else // 如果传感器未检测到障碍（值为1）
+    {
+        digitalWrite(led, LOW);  // 关闭LED
+    }
 }
 ```
 当传感器检测到障碍物（输出0）时，外接LED模块LED亮起，否则LED熄灭。
@@ -840,52 +724,35 @@ http://www.keyes-robot.com
 
 */
 
-int L_pin = 11; //左边循迹传感器的引脚接数字口11
-
-int M_pin = 7; //中间循迹传感器的引脚接数字口7
-
-int R_pin = 8; //右边循迹传感器的引脚接数字口8
+int L_pin = 11; // 左边循迹传感器的引脚接数字口11
+int M_pin = 7;  // 中间循迹传感器的引脚接数字口7
+int R_pin = 8;  // 右边循迹传感器的引脚接数字口8
 
 int val_L, val_R, val_M; // 定义三个传感器的变量值
 
-void setup()
-
+void setup() 
 {
+    Serial.begin(9600); // 启动串口监视器，并设置波特率为9600
 
-Serial.begin(9600); //启动串口监视器，并设置波特率为9600
-
-pinMode(L_pin, INPUT); // 设置左边循迹传感器为输入模式
-
-pinMode(M_pin, INPUT); // 设置中间循迹传感器为输入模式
-
-pinMode(R_pin, INPUT); // 设置右边循迹传感器为输入模式
-
+    pinMode(L_pin, INPUT); // 设置左边循迹传感器为输入模式
+    pinMode(M_pin, INPUT); // 设置中间循迹传感器为输入模式
+    pinMode(R_pin, INPUT); // 设置右边循迹传感器为输入模式
 }
 
-void loop()
-
+void loop() 
 {
+    val_L = digitalRead(L_pin); // 读取左边传感器的值
+    val_R = digitalRead(R_pin); // 读取右边传感器的值
+    val_M = digitalRead(M_pin); // 读取中间传感器的值
 
-val_L = digitalRead(L_pin);//读取左边传感器的值
+    Serial.print("left:");
+    Serial.print(val_L);
+    Serial.print(" middle:");
+    Serial.print(val_M);
+    Serial.print(" right:");
+    Serial.println(val_R);
 
-val_R = digitalRead(R_pin);//读取右边传感器的值
-
-val_M = digitalRead(M_pin);//读取中间传感器的值
-
-Serial.print("left:");
-
-Serial.print(val_L);
-
-Serial.print(" middle:");
-
-Serial.print(val_M);
-
-Serial.print(" right:");
-
-Serial.println(val_R);
-
-delay(500);// 延迟500ms
-
+    delay(500); // 延迟500ms
 }
 ```
 
@@ -924,66 +791,43 @@ http://www.keyes-robot.com
 
 */
 
-int L_pin = 11; //左边循迹传感器的引脚接数字口11
-
-int M_pin = 7; //中间循迹传感器的引脚接数字口7
-
-int R_pin = 8; //右边循迹传感器的引脚接数字口8
+int L_pin = 11; // 左边循迹传感器的引脚接数字口11
+int M_pin = 7;  // 中间循迹传感器的引脚接数字口7
+int R_pin = 8;  // 右边循迹传感器的引脚接数字口8
 
 int val_L, val_R, val_M; // 定义三个传感器的变量值
 
-void setup()
-
+void setup() 
 {
+    Serial.begin(9600); // 启动串口监视器，并设置波特率为9600
 
-Serial.begin(9600); //启动串口监视器，并设置波特率为9600
-
-pinMode(L_pin, INPUT); // 设置左边循迹传感器为输入模式
-
-pinMode(M_pin, INPUT); // 设置中间循迹传感器为输入模式
-
-pinMode(R_pin, INPUT); // 设置右边循迹传感器为输入模式
-
-pinMode(9, OUTPUT);
-
+    pinMode(L_pin, INPUT);  // 设置左边循迹传感器为输入模式
+    pinMode(M_pin, INPUT);  // 设置中间循迹传感器为输入模式
+    pinMode(R_pin, INPUT);  // 设置右边循迹传感器为输入模式
+    pinMode(9, OUTPUT);     // 设置数字引脚9为输出模式（用于控制LED）
 }
 
-void loop() {
-
-val_L = digitalRead(L_pin);//读取左边传感器的值
-
-val_R = digitalRead(R_pin);//读取右边传感器的值
-
-val_M = digitalRead(M_pin);//读取中间传感器的值
-
-Serial.print("left:");
-
-Serial.print(val_L);
-
-Serial.print(" middle:");
-
-Serial.print(val_M);
-
-Serial.print(" right:");
-
-Serial.println(val_R);
-
-if (val_L == LOW || val_M == LOW || val_R == LOW) //检测到信号
-
+void loop() 
 {
+    val_L = digitalRead(L_pin); // 读取左边传感器的值
+    val_R = digitalRead(R_pin); // 读取右边传感器的值
+    val_M = digitalRead(M_pin); // 读取中间传感器的值
 
-digitalWrite(9, HIGH);//LED 灯亮
+    Serial.print("left:");
+    Serial.print(val_L);
+    Serial.print(" middle:");
+    Serial.print(val_M);
+    Serial.print(" right:");
+    Serial.println(val_R);
 
-}
-
-else//如果没有检测到信号
-
-{
-
-digitalWrite(9, LOW);//LED 灯灭
-
-}
-
+    if (val_L == LOW || val_M == LOW || val_R == LOW) // 检测到信号（LOW表示检测到黑线）
+    {
+        digitalWrite(9, HIGH); // LED灯亮
+    }
+    else // 如果没有检测到信号
+    {
+        digitalWrite(9, LOW); // LED灯灭
+    }
 }
 ```
 上传代码到开发板，用我们的手去一个个的靠近传感器，我们看看LED灯的状态发生了改变没有？当我们用手去遮挡循迹传感器的时候，我们可以看到LED灯亮起来了。
@@ -1070,61 +914,44 @@ http://www.keyes-robot.com
 */
 
 int trigPin = 12; // Trig引脚接数字口12
-
 int echoPin = 13; // Echo引脚接数字口13
 
-long duration, cm, inches;
+long duration, cm, inches; // 定义变量用于存储时间、距离（厘米和英寸）
 
-void setup() {
+void setup() 
+{
+    Serial.begin(9600); // 启动串口，设置波特率为9600
 
-//启动串口
-
-Serial.begin (9600);
-
-//定义引脚模式
-
-pinMode(trigPin, OUTPUT);
-
-pinMode(echoPin, INPUT);
-
+    pinMode(trigPin, OUTPUT); // 设置trigPin为输出模式
+    pinMode(echoPin, INPUT);  // 设置echoPin为输入模式
 }
 
-void loop() {
+void loop() 
+{
+    // 拉低trigPin 2微秒
+    digitalWrite(trigPin, LOW);
+    delayMicroseconds(2);
 
-// 拉低2us
+    // 给trigPin至少10微秒高电平触发
+    digitalWrite(trigPin, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(trigPin, LOW);
 
-digitalWrite(trigPin, LOW);
+    // 读取echoPin高电平时间
+    duration = pulseIn(echoPin, HIGH);
 
-delayMicroseconds(2);
+    // 将时间转换成距离（厘米和英寸）
+    cm = (duration / 2) / 29.1;    // 计算距离（厘米）
+    inches = (duration / 2) / 74;  // 计算距离（英寸）
 
-digitalWrite(trigPin, HIGH);//至少给trig引脚10us高电平触发
+    // 在串口监视器中打印距离
+    Serial.print(inches);
+    Serial.print("in, ");
+    Serial.print(cm);
+    Serial.print("cm");
+    Serial.println();
 
-delayMicroseconds(10);
-
-digitalWrite(trigPin, LOW);
-
-// 读取echo高电平时间
-
-duration = pulseIn(echoPin, HIGH);
-
-// 转换成距离
-
-cm = (duration / 2) / 29.1;
-
-inches = (duration / 2) / 74;
-
-Serial.print(inches);
-
-Serial.print("in, ");
-
-Serial.print(cm);
-
-Serial.print("cm");
-
-Serial.println();
-
-delay(200);
-
+    delay(200); // 延迟200毫秒
 }
 ```
 
@@ -1174,75 +1001,54 @@ http://www.keyes-robot.com
 */
 
 int trigPin = 12; // Trig引脚接数字口12
-
 int echoPin = 13; // Echo引脚接数字口13
 
-long duration, cm, inches;
+long duration, cm, inches; // 定义变量用于存储时间、距离（厘米和英寸）
 
-void setup() {
+void setup() 
+{
+    Serial.begin(9600); // 启动串口，设置波特率为9600
 
-//启动串口
-
-Serial.begin (9600);
-
-//定义引脚模式
-
-pinMode(trigPin, OUTPUT);
-
-pinMode(echoPin, INPUT);
-
-pinMode(9, OUTPUT);
-
+    pinMode(trigPin, OUTPUT); // 设置trigPin为输出模式
+    pinMode(echoPin, INPUT);  // 设置echoPin为输入模式
+    pinMode(9, OUTPUT);       // 设置数字引脚9为输出模式（用于控制LED）
 }
 
-void loop() {
+void loop() 
+{
+    // 拉低trigPin 2微秒
+    digitalWrite(trigPin, LOW);
+    delayMicroseconds(2);
 
-// 拉低2us
+    // 给trigPin至少10微秒高电平触发
+    digitalWrite(trigPin, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(trigPin, LOW);
 
-digitalWrite(trigPin, LOW);
+    // 读取echoPin高电平时间
+    duration = pulseIn(echoPin, HIGH);
 
-delayMicroseconds(2);
+    // 将时间转换成距离（厘米和英寸）
+    cm = (duration / 2) / 29.1;    // 计算距离（厘米）
+    inches = (duration / 2) / 74;  // 计算距离（英寸）
 
-digitalWrite(trigPin, HIGH);//至少给trig引脚10us高电平触发
+    // 在串口监视器中打印距离
+    Serial.print(inches);
+    Serial.print("in, ");
+    Serial.print(cm);
+    Serial.print("cm");
+    Serial.println();
 
-delayMicroseconds(10);
+    if (cm >= 2 && cm <= 10) // 如果距离在2~10厘米之间
+    {
+        digitalWrite(9, HIGH); // 点亮LED
+    }
+    else // 否则
+    {
+        digitalWrite(9, LOW); // 熄灭LED
+    }
 
-digitalWrite(trigPin, LOW);
-
-// 读取echo高电平时间
-
-duration = pulseIn(echoPin, HIGH);
-
-// 转换成距离
-
-cm = (duration / 2) / 29.1;
-
-inches = (duration / 2) / 74;
-
-Serial.print(inches);
-
-Serial.print("in, ");
-
-Serial.print(cm);
-
-Serial.print("cm");
-
-Serial.println();
-
-if (cm >= 2 && cm <= 10) {//距离在2~10cm则点亮led
-
-digitalWrite(9, HIGH);
-
-}
-
-else {
-
-digitalWrite(9, LOW);//否则熄灭
-
-}
-
-delay(50);
-
+    delay(50); // 延迟50毫秒
 }
 ```
 //
@@ -1308,38 +1114,27 @@ http://www.keyes-robot.com
 
 */
 
-#include <IRremote.h> // IRremote库声明
+#include <IRremote.h> // 引入IRremote库
 
-int RECV_PIN = A3; //定义红外接收器的引脚为A3
+int RECV_PIN = A3; // 定义红外接收器的引脚为A3
 
-IRrecv irrecv(RECV_PIN);
+IRrecv irrecv(RECV_PIN); // 创建红外接收对象
+decode_results results;   // 定义解码结果存储变量
 
-decode_results results; //解码结果放在 decode results结构的 result中
-
-void setup()
-
+void setup() 
 {
-
-Serial.begin(9600);
-
-irrecv.enableIRIn(); // 启动接收器
-
+    Serial.begin(9600);       // 初始化串口通信，设置波特率为9600
+    irrecv.enableIRIn();      // 启动红外接收器
 }
 
-void loop() {
-
-if (irrecv.decode(&results))//解码成功，收到一组红外讯号
-
+void loop() 
 {
-
-Serial.println(results.value, HEX);//以16进制换行输出接收代码
-
-irrecv.resume(); // 接收下一个值
-
-}
-
-delay(100);
-
+    if (irrecv.decode(&results)) // 如果解码成功，收到一组红外信号
+    {
+        Serial.println(results.value, HEX); // 以16进制换行输出接收到的红外代码
+        irrecv.resume();                   // 继续接收下一个值
+    }
+    delay(100); // 延迟100毫秒
 }
 ```
 
@@ -1379,61 +1174,41 @@ http://www.keyes-robot.com
 
 */
 
-#include <IRremote.h>
+#include <IRremote.h> // 引入IRremote库
 
-int RECV_PIN = A3;//定义红外接收器的引脚为A3
+int RECV_PIN = A3; // 定义红外接收器的引脚为A3
+int LED_PIN = 9;   // 定义发光LED引脚为数字口9
+int a = 0;         // 定义变量a，用于记录LED状态
 
-int LED_PIN = 9; //定义发光LED引脚数字9
+IRrecv irrecv(RECV_PIN); // 创建红外接收对象
+decode_results results;  // 定义解码结果存储变量
 
-int a = 0;
-
-IRrecv irrecv(RECV_PIN);
-
-decode_results results;
-
-void setup()
-
+void setup() 
 {
-
-Serial.begin(9600);
-
-irrecv.enableIRIn(); // 初始化红外接收器
-
-pinMode(LED_PIN, OUTPUT); //设置发光LED引脚数字4
-
+    Serial.begin(9600);       // 初始化串口通信，设置波特率为9600
+    irrecv.enableIRIn();      // 启动红外接收器
+    pinMode(LED_PIN, OUTPUT); // 设置LED引脚为输出模式
 }
 
-void loop() {
-
-if (irrecv.decode(&results)) {
-
-Serial.println(results.value, HEX);
-
-if (results.value == 0xFF02FD & a == 0)
-//由上面的键值码，我们用的遥控器上的OK键，如果按下OK键
-
+void loop() 
 {
+    if (irrecv.decode(&results)) // 如果解码成功，收到一组红外信号
+    {
+        Serial.println(results.value, HEX); // 以16进制换行输出接收到的红外代码
 
-digitalWrite(LED_PIN, HIGH); //LED点亮
+        if (results.value == 0xFF02FD && a == 0) // 如果按下遥控器的OK键且LED当前为关闭状态
+        {
+            digitalWrite(LED_PIN, HIGH); // 点亮LED
+            a = 1;                      // 更新状态变量
+        }
+        else if (results.value == 0xFF02FD && a == 1) // 如果按下遥控器的OK键且LED当前为点亮状态
+        {
+            digitalWrite(LED_PIN, LOW); // 熄灭LED
+            a = 0;                      // 更新状态变量
+        }
 
-a = 1;
-
-}
-
-else if (results.value == 0xFF02FD & a == 1) //再按一下
-
-{
-
-digitalWrite(LED_PIN, LOW); //LED熄灭
-
-a = 0;
-
-}
-
-irrecv.resume(); // 接收下一个值
-
-}
-
+        irrecv.resume(); // 继续接收下一个红外信号
+    }
 }
 ```
 
@@ -1505,26 +1280,20 @@ http://www.keyes-robot.com
 
 */
 
-char ble_val; //字符变量，用于存放蓝牙接收到的值
+char ble_val; // 字符变量，用于存放蓝牙接收到的值
 
-void setup() {
-
-Serial.begin(9600);
-
-}
-
-void loop() {
-
-if (Serial.available() > 0) //判断串口缓存区是否有数据
-
+void setup() 
 {
-
-ble_val = Serial.read(); //读取串口缓存区的数据
-
-Serial.println(ble_val); //打印出来
-
+    Serial.begin(9600); // 初始化串口通信，设置波特率为9600
 }
 
+void loop() 
+{
+    if (Serial.available() > 0) // 判断串口缓存区是否有数据
+    {
+        ble_val = Serial.read(); // 读取串口缓存区的数据
+        Serial.println(ble_val); // 打印接收到的数据并换行
+    }
 }
 ```
 
@@ -1602,54 +1371,35 @@ http://www.keyes-robot.com
 
 */
 
-int ledpin = 9;
+int ledpin = 9; // 定义LED引脚为数字口9
 
-void setup()
-
+void setup() 
 {
-
-Serial.begin(9600);
-
-pinMode(ledpin, OUTPUT);
-
+    Serial.begin(9600);       // 初始化串口通信，设置波特率为9600
+    pinMode(ledpin, OUTPUT); // 设置LED引脚为输出模式
 }
 
-void loop()
-
+void loop() 
 {
+    int i; // 定义变量i，用于存储从串口接收到的数据
 
-int i;
+    if (Serial.available()) // 判断串口缓存区是否有数据
+    {
+        i = Serial.read(); // 读取串口缓存区的数据
+        Serial.println("DATA RECEIVED:"); // 打印提示信息
 
-if (Serial.available())
+        if (i == 1) // 如果接收到的数据为1
+        {
+            digitalWrite(ledpin, HIGH); // 点亮LED
+            Serial.println("led on");   // 打印LED状态
+        }
 
-{
-
-i = Serial.read();
-
-Serial.println("DATA RECEIVED:");
-
-if (i == 1)
-
-{
-
-digitalWrite(ledpin, HIGH);
-
-Serial.println("led on");
-
-}
-
-if (i == 0)
-
-{
-
-digitalWrite(ledpin, LOW);
-
-Serial.println("led off");
-
-}
-
-}
-
+        if (i == 0) // 如果接收到的数据为0
+        {
+            digitalWrite(ledpin, LOW); // 熄灭LED
+            Serial.println("led off"); // 打印LED状态
+        }
+    }
 }
 ```
 
@@ -1723,84 +1473,53 @@ http://www.keyes-robot.com
 
 */
 
-int MA = 2; //定义电机A方向控制引脚为D2
+int MA = 2;   // 定义电机A方向控制引脚为D2
+int PWMA = 6; // 定义电机A速度控制引脚为D6
+int MB = 4;   // 定义电机B方向控制引脚为D4
+int PWMB = 5; // 定义电机B速度控制引脚为D5
 
-int PWMA = 6; //定义电机A速度控制引脚为D6
-
-int MB = 4; //定义电机B方向控制引脚为D4
-
-int PWMB = 5; //定义电机B速度控制引脚为D5
-
-void setup() {
-
-pinMode(MA, OUTPUT); //配置电机引脚为输出模式
-
-pinMode(PWMA, OUTPUT);
-
-pinMode(MB, OUTPUT);
-
-pinMode(PWMB, OUTPUT);
-
+void setup() 
+{
+    pinMode(MA, OUTPUT);   // 配置电机A方向控制引脚为输出模式
+    pinMode(PWMA, OUTPUT); // 配置电机A速度控制引脚为输出模式
+    pinMode(MB, OUTPUT);   // 配置电机B方向控制引脚为输出模式
+    pinMode(PWMB, OUTPUT); // 配置电机B速度控制引脚为输出模式
 }
 
-void loop() {
+void loop() 
+{
+    // 前进1秒
+    digitalWrite(MA, HIGH);  // 电机A正转
+    analogWrite(PWMA, 200);  // 电机A速度为200
+    digitalWrite(MB, HIGH);  // 电机B正转
+    analogWrite(PWMB, 200);  // 电机B速度为200
+    delay(1000);             // 延迟1秒
 
-//前进1秒
+    // 后退1秒
+    digitalWrite(MA, LOW);   // 电机A反转
+    analogWrite(PWMA, 200);  // 电机A速度为200
+    digitalWrite(MB, LOW);   // 电机B反转
+    analogWrite(PWMB, 200);  // 电机B速度为200
+    delay(1000);             // 延迟1秒
 
-digitalWrite(MA, HIGH); //电机A正转
+    // 左转1秒
+    digitalWrite(MA, HIGH);  // 电机A正转
+    analogWrite(PWMA, 200);  // 电机A速度为200
+    digitalWrite(MB, LOW);   // 电机B反转
+    analogWrite(PWMB, 200);  // 电机B速度为200
+    delay(1000);             // 延迟1秒
 
-analogWrite(PWMA, 200); //电机A速度为200
+    // 右转1秒
+    digitalWrite(MA, LOW);   // 电机A反转
+    analogWrite(PWMA, 200);  // 电机A速度为200
+    digitalWrite(MB, HIGH);  // 电机B正转
+    analogWrite(PWMB, 200);  // 电机B速度为200
+    delay(1000);             // 延迟1秒
 
-digitalWrite(MB, HIGH); //电机B正转
-
-analogWrite(PWMB, 200); //电机B速度为200
-
-delay(1000);
-
-//后退1秒
-
-digitalWrite(MA, LOW); //电机A反转
-
-analogWrite(PWMA, 200); //电机A速度为200
-
-digitalWrite(MB, LOW); //电机B反转
-
-analogWrite(PWMB, 200); //电机B速度为200
-
-delay(1000);
-
-//左转1秒
-
-digitalWrite(MA, HIGH); //电机A正转
-
-analogWrite(PWMA, 200); //电机A速度为200
-
-digitalWrite(MB, LOW); //电机B反转
-
-analogWrite(PWMB, 200); //电机B速度为200
-
-delay(1000);
-
-//右转1秒
-
-digitalWrite(MA, LOW); //电机A反转
-
-analogWrite(PWMA, 200); //电机A速度为200
-
-digitalWrite(MB, HIGH); //电机B正转
-
-analogWrite(PWMB, 200); //电机B速度为200
-
-delay(1000);
-
-//停止1秒
-
-analogWrite(PWMA, 0);
-
-analogWrite(PWMB, 0);
-
-delay(1000);
-
+    // 停止1秒
+    analogWrite(PWMA, 0);    // 电机A停止
+    analogWrite(PWMB, 0);    // 电机B停止
+    delay(1000);             // 延迟1秒
 }
 ```
 
@@ -1832,84 +1551,53 @@ http://www.keyes-robot.com
 
 */
 
-int MA = 2; //定义电机A方向控制引脚为D2
+int MA = 2;   // 定义电机A方向控制引脚为D2
+int PWMA = 6; // 定义电机A速度控制引脚为D6
+int MB = 4;   // 定义电机B方向控制引脚为D4
+int PWMB = 5; // 定义电机B速度控制引脚为D5
 
-int PWMA = 6; //定义电机A速度控制引脚为D6
-
-int MB = 4; //定义电机B方向控制引脚为D4
-
-int PWMB = 5; //定义电机B速度控制引脚为D5
-
-void setup() {
-
-pinMode(MA, OUTPUT); //配置电机引脚为输出模式
-
-pinMode(PWMA, OUTPUT);
-
-pinMode(MB, OUTPUT);
-
-pinMode(PWMB, OUTPUT);
-
+void setup() 
+{
+    pinMode(MA, OUTPUT);   // 配置电机A方向控制引脚为输出模式
+    pinMode(PWMA, OUTPUT); // 配置电机A速度控制引脚为输出模式
+    pinMode(MB, OUTPUT);   // 配置电机B方向控制引脚为输出模式
+    pinMode(PWMB, OUTPUT); // 配置电机B速度控制引脚为输出模式
 }
 
-void loop() {
+void loop() 
+{
+    // 前进1秒
+    digitalWrite(MA, HIGH);  // 电机A正转
+    analogWrite(PWMA, 100);  // 电机A速度为100
+    digitalWrite(MB, HIGH);  // 电机B正转
+    analogWrite(PWMB, 100);  // 电机B速度为100
+    delay(1000);             // 延迟1秒
 
-//前进1秒
+    // 后退1秒
+    digitalWrite(MA, LOW);   // 电机A反转
+    analogWrite(PWMA, 100);  // 电机A速度为100
+    digitalWrite(MB, LOW);   // 电机B反转
+    analogWrite(PWMB, 100);  // 电机B速度为100
+    delay(1000);             // 延迟1秒
 
-digitalWrite(MA, HIGH); //电机A正转
+    // 左转1秒
+    digitalWrite(MB, LOW);   // 电机B反转
+    analogWrite(PWMB, 100);  // 电机B速度为100
+    digitalWrite(MA, HIGH);  // 电机A正转
+    analogWrite(PWMA, 100);  // 电机A速度为100
+    delay(1000);             // 延迟1秒
 
-analogWrite(PWMA, 100); //电机A速度为100
+    // 右转1秒
+    digitalWrite(MA, LOW);   // 电机A反转
+    analogWrite(PWMA, 100);  // 电机A速度为100
+    digitalWrite(MB, HIGH);  // 电机B正转
+    analogWrite(PWMB, 100);  // 电机B速度为100
+    delay(1000);             // 延迟1秒
 
-digitalWrite(MB, HIGH); //电机B正转
-
-analogWrite(PWMB, 100); //电机B速度为100
-
-delay(1000);
-
-//后退1秒
-
-digitalWrite(MA, LOW); //电机A反转
-
-analogWrite(PWMA, 100); //电机A速度为100
-
-digitalWrite(MB, LOW); //电机B反转
-
-analogWrite(PWMB, 100); //电机B速度为100
-
-delay(1000);
-
-//左转1秒
-
-digitalWrite(MB, LOW); //电机B反转
-
-analogWrite(PWMB, 100); //电机B速度为100
-
-digitalWrite(MA, HIGH); //电机A正转
-
-analogWrite(PWMA, 100); //电机A速度为100
-
-delay(1000);
-
-//右转1秒
-
-digitalWrite(MA, LOW); //电机A反转
-
-analogWrite(PWMA, 100); //电机A速度为100
-
-digitalWrite(MB, HIGH); //电机B正转
-
-analogWrite(PWMB, 100); //电机B速度为100
-
-delay(1000);
-
-//停止1秒
-
-analogWrite(PWMA, 0);
-
-analogWrite(PWMB, 0);
-
-delay(1000);
-
+    // 停止1秒
+    analogWrite(PWMA, 0);    // 电机A停止
+    analogWrite(PWMB, 0);    // 电机B停止
+    delay(1000);             // 延迟1秒
 }
 ```
 
@@ -1937,104 +1625,63 @@ http://www.keyes-robot.com
 
 */
 
-int beeppin = 3; // 蜂鸣器的pin
+int beeppin = 3; // 定义蜂鸣器连接的引脚为数字口3
+char blue_val;   // 定义变量，用于存储从蓝牙接收到的值
 
-char blue_val;
-
-//低音
-
+// 低音频率定义
 #define D0 -1
-
 #define D1 262
-
 #define D2 293
-
 #define D3 329
-
 #define D4 349
-
 #define D5 392
-
 #define D6 440
-
 #define D7 494
 
-//中音
-
+// 中音频率定义
 #define M1 523
-
 #define M2 586
-
 #define M3 658
-
 #define M4 697
-
 #define M5 783
-
 #define M6 879
-
 #define M7 987
 
-//高音
-
+// 高音频率定义
 #define H1 1045
-
 #define H2 1171
-
 #define H3 1316
-
 #define H4 1393
-
 #define H5 1563
-
 #define H6 1755
-
 #define H7 1971
 
-//列出全部D调的频率
-
-void setup() {
-
-Serial.begin(9600);//设置波特率为9600
-
-pinMode(beeppin, OUTPUT); //扬声器的pin设置为输出模式
-
-}
-
-void loop(void)
-
+void setup() 
 {
-
-if (Serial.available() > 0) {
-
-blue_val = Serial.read();
-
-Serial.println(blue_val);//串口打印蓝牙的值
-
+    Serial.begin(9600);           // 初始化串口通信，设置波特率为9600
+    pinMode(beeppin, OUTPUT);    // 设置蜂鸣器引脚为输出模式
 }
 
-switch (blue_val) {
+void loop() 
+{
+    if (Serial.available() > 0)  // 判断串口缓存区是否有数据
+    {
+        blue_val = Serial.read(); // 读取串口缓存区的数据
+        Serial.println(blue_val); // 在串口监视器中打印接收到的值
+    }
 
-case '1': tone(beeppin, D1); break; //接收到'1',播放音符DO
-
-case '2': tone(beeppin, D2); break; //接收到'2',播放音符Re
-
-case '3': tone(beeppin, D3); break; //接收到'3',播放音符Mi
-
-case '4': tone(beeppin, D4); break; //接收到'4',播放音符Fa
-
-case '5': tone(beeppin, D5); break; //接收到'5',播放音符So
-
-case '6': tone(beeppin, D6); break; //接收到'6',播放音符La
-
-case '7': tone(beeppin, D7); break; //接收到'7',播放音符Si
-
-case '8': tone(beeppin, M1); break; //接收到'8',播放音符Do
-
-case 'S': noTone(beeppin); break; //接收到'S',停止播放
-
-}
-
+    switch (blue_val) // 根据接收到的值执行相应操作
+    {
+        case '1': tone(beeppin, D1); break; // 接收到'1'，播放音符Do（低音）
+        case '2': tone(beeppin, D2); break; // 接收到'2'，播放音符Re（低音）
+        case '3': tone(beeppin, D3); break; // 接收到'3'，播放音符Mi（低音）
+        case '4': tone(beeppin, D4); break; // 接收到'4'，播放音符Fa（低音）
+        case '5': tone(beeppin, D5); break; // 接收到'5'，播放音符So（低音）
+        case '6': tone(beeppin, D6); break; // 接收到'6'，播放音符La（低音）
+        case '7': tone(beeppin, D7); break; // 接收到'7'，播放音符Si（低音）
+        case '8': tone(beeppin, M1); break; // 接收到'8'，播放音符Do（中音）
+        case 'S': noTone(beeppin); break;   // 接收到'S'，停止播放
+    }
 }
 ```
 上传代码完成后再连接APP，当我们按下APP界面的DO,RE,MI...等键时，蜂鸣器就会响起对应的旋律，是不是很好玩？
@@ -2059,106 +1706,71 @@ http://www.keyes-robot.com
 
 */
 
-int beeppin = 3; // 蜂鸣器的pin
+int beeppin = 3;   // 定义蜂鸣器连接的引脚为数字口3
+int ledPin = 9;    // 定义LED灯连接的引脚为数字口9
+int trigPin = 12;  // 定义超声波传感器的TRIG引脚为数字口12
+int echoPin = 13;  // 定义超声波传感器的ECHO引脚为数字口13
 
-int ledPin = 9; //led灯接D9
+int distance;      // 定义变量，用于存储测得的距离
 
-int trigPin = 12; //TRIG引脚接D12
-
-int echoPin = 13; //ECHO引脚接D13
-
-int distance;
-
-void buzzer1() //蜂鸣器报警
-
+void buzzer1()     // 蜂鸣器报警函数1
 {
-
-tone(beeppin, 900);
-
-delay(100); //响声间隔100ms 听上去更急促
-
-noTone(beeppin);
-
-delay(100);
-
+    tone(beeppin, 900); // 蜂鸣器发出900Hz的声音
+    delay(100);         // 响声持续100ms
+    noTone(beeppin);    // 停止蜂鸣器
+    delay(100);         // 间隔100ms
 }
 
-void buzzer2() //蜂鸣器报警
-
+void buzzer2()     // 蜂鸣器报警函数2
 {
-
-tone(beeppin, 800);
-
-delay(400); //响声间隔500ms
-
-noTone(beeppin);
-
-delay(400);
-
+    tone(beeppin, 800); // 蜂鸣器发出800Hz的声音
+    delay(400);         // 响声持续400ms
+    noTone(beeppin);    // 停止蜂鸣器
+    delay(400);         // 间隔400ms
 }
 
-int get_distance() { //超声波测距函数
+int get_distance() // 超声波测距函数
+{
+    digitalWrite(trigPin, LOW);  // 拉低TRIG引脚
+    delayMicroseconds(2);        // 延迟2微秒
+    digitalWrite(trigPin, HIGH); // 拉高TRIG引脚至少10微秒触发
+    delayMicroseconds(10);       // 延迟10微秒
+    digitalWrite(trigPin, LOW);  // 拉低TRIG引脚
 
-digitalWrite(trigPin, LOW);
-
-delayMicroseconds(2);
-
-digitalWrite(trigPin, HIGH); //给TRIG引脚至少10us的时间触发
-
-delayMicroseconds(10);
-
-digitalWrite(trigPin, LOW);
-
-distance = pulseIn(echoPin, HIGH) / 58; //检测脉冲宽度，并计算出距离
-
-Serial.print("distance:"); //串口打印出距离，单位为cm
-
-Serial.print(distance);
-
-Serial.println("cm");
-
+    distance = pulseIn(echoPin, HIGH) / 58; // 计算距离（单位：厘米）
+    Serial.print("distance:");              // 在串口监视器中打印距离
+    Serial.print(distance);
+    Serial.println("cm");
+    return distance; // 返回测得的距离
 }
 
-void setup() {
-
-Serial.begin(9600); //设置波特率为9600
-
-pinMode(beeppin, OUTPUT); //设置蜂鸣器引脚输出模式
-
-pinMode(ledPin, OUTPUT); //LED引脚为输出模式
-
-pinMode(trigPin, OUTPUT); //定义TRIG为输出模式
-
-pinMode(echoPin, INPUT); //定义ECHO为输入模式
-
+void setup() 
+{
+    Serial.begin(9600);           // 初始化串口通信，设置波特率为9600
+    pinMode(beeppin, OUTPUT);     // 设置蜂鸣器引脚为输出模式
+    pinMode(ledPin, OUTPUT);      // 设置LED引脚为输出模式
+    pinMode(trigPin, OUTPUT);     // 设置TRIG引脚为输出模式
+    pinMode(echoPin, INPUT);      // 设置ECHO引脚为输入模式
 }
 
-void loop() {
+void loop() 
+{
+    get_distance(); // 获取当前距离
 
-get_distance();
-
-if (distance < 10) {
-
-analogWrite(ledPin, 255); //距离近灯更亮
-
-buzzer1(); //报警
-
-}
-
-else if (distance < 20) {
-
-analogWrite(ledPin, 100); //没那么亮
-
-buzzer2();
-
-}
-
-else {
-
-analogWrite(ledPin, 0); //灯灭
-
-}
-
+    if (distance < 10) // 如果距离小于10厘米
+    {
+        analogWrite(ledPin, 255); // LED亮度最大
+        buzzer1();                // 调用蜂鸣器报警函数1
+    }
+    else if (distance < 20) // 如果距离小于20厘米
+    {
+        analogWrite(ledPin, 100); // LED亮度中等
+        buzzer2();                // 调用蜂鸣器报警函数2
+    }
+    else // 如果距离大于等于20厘米
+    {
+        analogWrite(ledPin, 0);   // LED熄灭
+    }
 }
 ```
 我们用手靠近超声波传感器的时候，蜂鸣器会发出警报，led灯也会亮起。继续接近超声波时，蜂鸣器报警更急促了，led灯也更亮了。我们发现这里只是用到了超声波传感器来检测前面的障碍，那么左右两边的障碍物呢？这个就留给小伙伴们自己去完成了哈（提示：红外避障传感器）。
@@ -2212,125 +1824,86 @@ http://www.keyes-robot.com
 
 */
 
-int L_pin = 11; //定义左边传感器引脚为D11
+int L_pin = 11; // 定义左边循迹传感器引脚为D11
+int M_pin = 7;  // 定义中间循迹传感器引脚为D7
+int R_pin = 8;  // 定义右边循迹传感器引脚为D8
 
-int M_pin = 7; //定义中间传感器引脚为D7
+int MA = 2;    // 定义电机A方向控制引脚为D2
+int PWMA = 6;  // 定义电机A速度控制引脚为D6
+int MB = 4;    // 定义电机B方向控制引脚为D4
+int PWMB = 5;  // 定义电机B速度控制引脚为D5
 
-int R_pin = 8; //定义右边传感器引脚为D8
+int L_val, M_val, R_val; // 定义变量，用于存储传感器读取的值
 
-int MA = 2; //定义电机A方向控制引脚为D2
-
-int PWMA = 6; //定义电机A速度控制引脚为D6
-
-int MB = 4; //定义电机A方向控制引脚为D4
-
-int PWMB = 5; //定义电机A速度控制引脚为D5
-
-int L_val, M_val, R_val;
-
-void advance() { //小车前进
-
-digitalWrite(MA, HIGH); //电机A正转
-
-analogWrite(PWMA, 200); //电机A速度为200
-
-digitalWrite(MB, HIGH); //电机B正转
-
-analogWrite(PWMB, 200); //电机B速度为200
-
+void advance() // 小车前进
+{
+    digitalWrite(MA, HIGH);  // 电机A正转
+    analogWrite(PWMA, 200);  // 电机A速度为200
+    digitalWrite(MB, HIGH);  // 电机B正转
+    analogWrite(PWMB, 200);  // 电机B速度为200
 }
 
-void back() { //小车后退
-
-digitalWrite(MA, LOW); //电机A反转
-
-analogWrite(PWMA, 200); //电机A速度为200
-
-digitalWrite(MB, LOW); //电机B反转
-
-analogWrite(PWMB, 200); //电机B速度为200
-
+void back() // 小车后退
+{
+    digitalWrite(MA, LOW);   // 电机A反转
+    analogWrite(PWMA, 200);  // 电机A速度为200
+    digitalWrite(MB, LOW);   // 电机B反转
+    analogWrite(PWMB, 200);  // 电机B速度为200
 }
 
-void turnL() { //小车左转
-
-digitalWrite(MB, LOW); //电机B反转
-
-analogWrite(PWMB, 200); //电机B速度为200
-
-digitalWrite(MA, HIGH); //电机A正转
-
-analogWrite(PWMA, 200); //电机A速度为200
-
+void turnL() // 小车左转
+{
+    digitalWrite(MB, LOW);   // 电机B反转
+    analogWrite(PWMB, 200);  // 电机B速度为200
+    digitalWrite(MA, HIGH);  // 电机A正转
+    analogWrite(PWMA, 200);  // 电机A速度为200
 }
 
-void turnR() { //小车右转
-
-digitalWrite(MA, LOW); //电机A反转
-
-analogWrite(PWMA, 200); //电机A速度为200
-
-digitalWrite(MB, HIGH); //电机B正转
-
-analogWrite(PWMB, 200); //电机B速度为200
-
+void turnR() // 小车右转
+{
+    digitalWrite(MA, LOW);   // 电机A反转
+    analogWrite(PWMA, 200);  // 电机A速度为200
+    digitalWrite(MB, HIGH);  // 电机B正转
+    analogWrite(PWMB, 200);  // 电机B速度为200
 }
 
-void stopp() { //小车停止
-
-analogWrite(PWMA, 0); //电机A速度为0
-
-analogWrite(PWMB, 0); //电机B速度为0
-
+void stopp() // 小车停止
+{
+    analogWrite(PWMA, 0);    // 电机A速度为0
+    analogWrite(PWMB, 0);    // 电机B速度为0
 }
 
-void setup() {
+void setup() 
+{
+    Serial.begin(9600);      // 初始化串口通信，设置波特率为9600
 
-Serial.begin(9600); //设置波特率为9600
+    pinMode(L_pin, INPUT);   // 设置左边循迹传感器为输入模式
+    pinMode(M_pin, INPUT);   // 设置中间循迹传感器为输入模式
+    pinMode(R_pin, INPUT);   // 设置右边循迹传感器为输入模式
 
-pinMode(L_pin, INPUT); //循迹传感器引脚都配置为输入模式
-
-pinMode(M_pin, INPUT);
-
-pinMode(R_pin, INPUT);
-
-pinMode(MA, OUTPUT); //配置电机引脚为输出模式
-
-pinMode(PWMA, OUTPUT);
-
-pinMode(MB, OUTPUT);
-
-pinMode(PWMB, OUTPUT);
-
+    pinMode(MA, OUTPUT);     // 设置电机A方向控制引脚为输出模式
+    pinMode(PWMA, OUTPUT);   // 设置电机A速度控制引脚为输出模式
+    pinMode(MB, OUTPUT);     // 设置电机B方向控制引脚为输出模式
+    pinMode(PWMB, OUTPUT);   // 设置电机B速度控制引脚为输出模式
 }
 
-void loop() {
+void loop() 
+{
+    L_val = digitalRead(L_pin); // 读取左边传感器的值
+    M_val = digitalRead(M_pin); // 读取中间传感器的值
+    R_val = digitalRead(R_pin); // 读取右边传感器的值
 
-L_val = digitalRead(L_pin); //读取左边传感器的值
-
-M_val = digitalRead(M_pin); //读中间传感器的值
-
-R_val = digitalRead(R_pin); //读取右边传感器的值
-
-if ( L_val == 0 && M_val == 0 && R_val == 0 ) {
-//当都没有检测到黑线时前进
-
-advance();
-
-}
-
-else { //否则任一巡线传感器检测到黑线就后退再左转
-
-back();
-
-delay(500);
-
-turnL();
-
-delay(300);
-
-}
-
+    if (L_val == 0 && M_val == 0 && R_val == 0) // 如果都没有检测到黑线
+    {
+        advance(); // 小车前进
+    }
+    else // 如果任一传感器检测到黑线
+    {
+        back();    // 小车后退
+        delay(500); // 延迟500毫秒
+        turnL();   // 小车左转
+        delay(300); // 延迟300毫秒
+    }
 }
 ```
 测试结果：
@@ -2388,152 +1961,105 @@ http://www.keyes-robot.com
 
 */
 
-int L_pin = 11; //定义左边传感器引脚为D11
+int L_pin = 11; // 定义左边循迹传感器引脚为D11
+int M_pin = 7;  // 定义中间循迹传感器引脚为D7
+int R_pin = 8;  // 定义右边循迹传感器引脚为D8
 
-int M_pin = 7; //定义中间传感器引脚为D7
+int MA = 2;    // 定义电机A方向控制引脚为D2
+int PWMA = 6;  // 定义电机A速度控制引脚为D6
+int MB = 4;    // 定义电机B方向控制引脚为D4
+int PWMB = 5;  // 定义电机B速度控制引脚为D5
 
-int R_pin = 8; //定义右边传感器引脚为D8
+int L_val, M_val, R_val; // 定义变量，用于存储传感器读取的值
 
-int MA = 2; //定义电机A方向控制引脚为D2
-
-int PWMA = 6; //定义电机A速度控制引脚为D6
-
-int MB = 4; //定义电机A方向控制引脚为D4
-
-int PWMB = 5; //定义电机A速度控制引脚为D5
-
-int L_val, M_val, R_val;
-
-void advance() { //小车前进
-
-digitalWrite(MA, HIGH); //电机A正转
-
-analogWrite(PWMA, 200); //电机A速度为200
-
-digitalWrite(MB, HIGH); //电机B正转
-
-analogWrite(PWMB, 200); //电机B速度为200
-
+void advance() // 小车前进
+{
+    digitalWrite(MA, HIGH);  // 电机A正转
+    analogWrite(PWMA, 200);  // 电机A速度为200
+    digitalWrite(MB, HIGH);  // 电机B正转
+    analogWrite(PWMB, 200);  // 电机B速度为200
 }
 
-void back() { //小车后退
-
-digitalWrite(MA, LOW); //电机A反转
-
-analogWrite(PWMA, 200); //电机A速度为200
-
-digitalWrite(MB, LOW); //电机B反转
-
-analogWrite(PWMB, 200); //电机B速度为200
-
+void back() // 小车后退
+{
+    digitalWrite(MA, LOW);   // 电机A反转
+    analogWrite(PWMA, 200);  // 电机A速度为200
+    digitalWrite(MB, LOW);   // 电机B反转
+    analogWrite(PWMB, 200);  // 电机B速度为200
 }
 
-void turnL() { //小车左转
-
-digitalWrite(MB, LOW); //电机B反转
-
-analogWrite(PWMB, 200); //电机B速度为200
-
-digitalWrite(MA, HIGH); //电机A正转
-
-analogWrite(PWMA, 200); //电机A速度为200
-
+void turnL() // 小车左转
+{
+    digitalWrite(MB, LOW);   // 电机B反转
+    analogWrite(PWMB, 200);  // 电机B速度为200
+    digitalWrite(MA, HIGH);  // 电机A正转
+    analogWrite(PWMA, 200);  // 电机A速度为200
 }
 
-void turnR() { //小车右转
-
-digitalWrite(MA, LOW); //电机A反转
-
-analogWrite(PWMA, 200); //电机A速度为200
-
-digitalWrite(MB, HIGH); //电机B正转
-
-analogWrite(PWMB, 200); //电机B速度为200
-
+void turnR() // 小车右转
+{
+    digitalWrite(MA, LOW);   // 电机A反转
+    analogWrite(PWMA, 200);  // 电机A速度为200
+    digitalWrite(MB, HIGH);  // 电机B正转
+    analogWrite(PWMB, 200);  // 电机B速度为200
 }
 
-void stopp() { //小车停止
-
-analogWrite(PWMA, 0); //电机A速度为0
-
-analogWrite(PWMB, 0); //电机B速度为0
-
+void stopp() // 小车停止
+{
+    analogWrite(PWMA, 0);    // 电机A速度为0
+    analogWrite(PWMB, 0);    // 电机B速度为0
 }
 
-void setup() {
+void setup() 
+{
+    Serial.begin(9600);      // 初始化串口通信，设置波特率为9600
 
-Serial.begin(9600); //设置波特率为9600
+    pinMode(L_pin, INPUT);   // 设置左边循迹传感器为输入模式
+    pinMode(M_pin, INPUT);   // 设置中间循迹传感器为输入模式
+    pinMode(R_pin, INPUT);   // 设置右边循迹传感器为输入模式
 
-pinMode(L_pin, INPUT); //循迹传感器引脚都配置为输入模式
-
-pinMode(M_pin, INPUT);
-
-pinMode(R_pin, INPUT);
-
-pinMode(MA, OUTPUT); //配置电机引脚为输出模式
-
-pinMode(PWMA, OUTPUT);
-
-pinMode(MB, OUTPUT);
-
-pinMode(PWMB, OUTPUT);
-
+    pinMode(MA, OUTPUT);     // 设置电机A方向控制引脚为输出模式
+    pinMode(PWMA, OUTPUT);   // 设置电机A速度控制引脚为输出模式
+    pinMode(MB, OUTPUT);     // 设置电机B方向控制引脚为输出模式
+    pinMode(PWMB, OUTPUT);   // 设置电机B速度控制引脚为输出模式
 }
 
-void loop() {
+void loop() 
+{
+    L_val = digitalRead(L_pin); // 读取左边传感器的值
+    M_val = digitalRead(M_pin); // 读取中间传感器的值
+    R_val = digitalRead(R_pin); // 读取右边传感器的值
 
-L_val = digitalRead(L_pin); //读取左边传感器的值
-
-M_val = digitalRead(M_pin); //读中间传感器的值
-
-R_val = digitalRead(R_pin); //读取右边传感器的值
-
-if (M_val == 1) { //中间检测到黑线
-
-if (L_val == 1 && R_val == 0) { //如果左边检测到黑线，右边没有，左转
-
-turnL();
-
-}
-
-else if (L_val == 0 && R_val == 1) {
-//否则如果右边检测到黑线，左边没有，右转
-
-turnR();
-
-}
-
-else { //否则前进
-
-advance();
-
-}
-
-}
-
-else { //中间没检测到黑线
-
-if (L_val == 1 && R_val == 0) { //如果左边检测到黑线，右边没有，左转
-
-turnL();
-
-}
-
-else if (L_val == 0 && R_val == 1) {
-//否则如果右边检测到黑线，左边没有，右转
-
-turnR();
-
-}
-
-else { //否则停止
-
-stopp();
-
-}
-
-}
-
+    if (M_val == 1) // 如果中间传感器检测到黑线
+    {
+        if (L_val == 1 && R_val == 0) // 如果左边检测到黑线，右边没有
+        {
+            turnL(); // 小车左转
+        }
+        else if (L_val == 0 && R_val == 1) // 如果右边检测到黑线，左边没有
+        {
+            turnR(); // 小车右转
+        }
+        else // 否则
+        {
+            advance(); // 小车前进
+        }
+    }
+    else // 如果中间传感器没有检测到黑线
+    {
+        if (L_val == 1 && R_val == 0) // 如果左边检测到黑线，右边没有
+        {
+            turnL(); // 小车左转
+        }
+        else if (L_val == 0 && R_val == 1) // 如果右边检测到黑线，左边没有
+        {
+            turnR(); // 小车右转
+        }
+        else // 否则
+        {
+            stopp(); // 小车停止
+        }
+    }
 }
 ```
 测试结果：
@@ -2591,174 +2117,121 @@ http://www.keyes-robot.com
 
 */
 
-int trigPin = 12; //定义TRIG引脚接D12
+int trigPin = 12; // 定义TRIG引脚接D12
+int echoPin = 13; // 定义ECHO引脚接D13
 
-int echoPin = 13; //定义ECHO引脚接D13
+int distance;     // 定义变量，用于存储测得的距离
 
-int distance;
+int MA = 2;    // 定义电机A方向控制引脚为D2
+int PWMA = 6;  // 定义电机A速度控制引脚为D6
+int MB = 4;    // 定义电机B方向控制引脚为D4
+int PWMB = 5;  // 定义电机B速度控制引脚为D5
 
-int MA = 2; //定义电机A方向控制引脚为D2
+int l_sensorPin = A1; // 定义左边避障传感器接A1
+int r_sensorPin = A2; // 定义右边避障传感器接A2
 
-int PWMA = 6; //定义电机A速度控制引脚为D6
+int l_val, r_val; // 定义变量，用于存储避障传感器的值
 
-int MB = 4; //定义电机A方向控制引脚为D4
+int get_distance() // 超声波测距函数
+{
+    digitalWrite(trigPin, LOW);  // 拉低TRIG引脚
+    delayMicroseconds(2);        // 延迟2微秒
+    digitalWrite(trigPin, HIGH); // 拉高TRIG引脚至少10微秒触发
+    delayMicroseconds(10);       // 延迟10微秒
+    digitalWrite(trigPin, LOW);  // 拉低TRIG引脚
 
-int PWMB = 5; //定义电机A速度控制引脚为D5
-
-int l_sensorPin = A1; //定义左边避障传感器接A1
-
-int r_sensorPin = A2; //定义右边避障传感器接A2
-
-int l_val, r_val;
-
-int get_distance() { //超声波测距函数
-
-digitalWrite(trigPin, LOW);
-
-delayMicroseconds(2);
-
-digitalWrite(trigPin, HIGH); //给TRIG引脚至少10us的时间触发
-
-delayMicroseconds(10);
-
-digitalWrite(trigPin, LOW);
-
-distance = pulseIn(echoPin, HIGH) / 58; //检测脉冲宽度，并计算出距离
-
-delay(50); //延时50ms
-
-Serial.print("distance:"); //串口打印出距离
-
-Serial.print(distance);
-
-Serial.println("cm");
-
+    distance = pulseIn(echoPin, HIGH) / 58; // 计算距离（单位：厘米）
+    delay(50);                             // 延迟50毫秒
+    Serial.print("distance:");              // 在串口监视器中打印距离
+    Serial.print(distance);
+    Serial.println("cm");
+    return distance; // 返回测得的距离
 }
 
-void setup() {
+void setup() 
+{
+    Serial.begin(9600);      // 初始化串口通信，设置波特率为9600
 
-Serial.begin(9600); //设置波特率为9600
+    pinMode(trigPin, OUTPUT); // 设置TRIG引脚为输出模式
+    pinMode(echoPin, INPUT);  // 设置ECHO引脚为输入模式
 
-pinMode(trigPin, OUTPUT); //定义TRIG为输出模式
+    pinMode(MA, OUTPUT);     // 设置电机A方向控制引脚为输出模式
+    pinMode(PWMA, OUTPUT);   // 设置电机A速度控制引脚为输出模式
+    pinMode(MB, OUTPUT);     // 设置电机B方向控制引脚为输出模式
+    pinMode(PWMB, OUTPUT);   // 设置电机B速度控制引脚为输出模式
 
-pinMode(echoPin, INPUT); //定义ECHO为输入模式
-
-pinMode(MA, OUTPUT); //配置电机引脚为输出模式
-
-pinMode(PWMA, OUTPUT);
-
-pinMode(MB, OUTPUT);
-
-pinMode(PWMB, OUTPUT);
-
-pinMode(l_sensorPin, INPUT);//将l_sensorPin设置为输入
-
-pinMode(r_sensorPin, INPUT);//将r_sensorPin设置为输入
-
+    pinMode(l_sensorPin, INPUT); // 设置左边避障传感器为输入模式
+    pinMode(r_sensorPin, INPUT); // 设置右边避障传感器为输入模式
 }
 
-void loop() {
+void loop() 
+{
+    get_distance(); // 调用测距函数
+    l_val = digitalRead(l_sensorPin); // 读取左边避障传感器的值
+    r_val = digitalRead(r_sensorPin); // 读取右边避障传感器的值
 
-get_distance(); //调用测距函数
-
-l_val = digitalRead(l_sensorPin);//读取避障传感器的值
-
-r_val = digitalRead(r_sensorPin);
-
-if (distance <= 7 || l_val == 0 && r_val == 0) {
-
-back();
-
+    if (distance <= 7 || (l_val == 0 && r_val == 0)) // 如果距离小于等于7厘米或左右避障传感器都检测到障碍
+    {
+        back(); // 小车后退
+    }
+    else if (distance > 7 && (l_val == 0 && r_val == 1)) // 如果距离大于7厘米且左边检测到障碍，右边没有
+    {
+        turnR(); // 小车右转
+    }
+    else if (distance > 7 && (l_val == 1 && r_val == 0)) // 如果距离大于7厘米且右边检测到障碍，左边没有
+    {
+        turnL(); // 小车左转
+    }
+    else if ((distance > 7 && distance <= 15) && (l_val == 1 && r_val == 1)) // 如果距离在7到15厘米之间且左右避障传感器都没有检测到障碍
+    {
+        stopp(); // 小车停止
+    }
+    else if ((distance > 15 && distance <= 35) && (l_val == 1 && r_val == 1)) // 如果距离在15到35厘米之间且左右避障传感器都没有检测到障碍
+    {
+        advance(); // 小车前进
+    }
+    else if (distance > 35 && (l_val == 1 && r_val == 1)) // 如果距离大于35厘米且左右避障传感器都没有检测到障碍
+    {
+        stopp(); // 小车停止
+    }
 }
 
-else if (distance > 7 && (l_val == 0 && r_val == 1)) {
-
-turnR();
-
+void advance() // 小车前进
+{
+    digitalWrite(MA, HIGH);  // 电机A正转
+    analogWrite(PWMA, 200);  // 电机A速度为200
+    digitalWrite(MB, HIGH);  // 电机B正转
+    analogWrite(PWMB, 200);  // 电机B速度为200
 }
 
-else if (distance > 7 && (l_val == 1 && r_val == 0)) {
-
-turnL();
-
+void back() // 小车后退
+{
+    digitalWrite(MA, LOW);   // 电机A反转
+    analogWrite(PWMA, 200);  // 电机A速度为200
+    digitalWrite(MB, LOW);   // 电机B反转
+    analogWrite(PWMB, 200);  // 电机B速度为200
 }
 
-else if ((distance > 7 && distance <= 15) && (l_val == 1 && r_val ==
-1)) {
-
-stopp();
-
+void turnL() // 小车左转
+{
+    digitalWrite(MB, LOW);   // 电机B反转
+    analogWrite(PWMB, 200);  // 电机B速度为200
+    digitalWrite(MA, HIGH);  // 电机A正转
+    analogWrite(PWMA, 200);  // 电机A速度为200
 }
 
-else if ((distance > 15 && distance <= 35) && (l_val == 1 && r_val ==
-1)) {
-
-advance();
-
+void turnR() // 小车右转
+{
+    digitalWrite(MA, LOW);   // 电机A反转
+    analogWrite(PWMA, 200);  // 电机A速度为200
+    digitalWrite(MB, HIGH);  // 电机B正转
+    analogWrite(PWMB, 200);  // 电机B速度为200
 }
 
-else if (distance > 35 && (l_val == 1 && r_val == 1)) {
-
-stopp();
-
-}
-
-}
-
-void advance() { //小车前进
-
-digitalWrite(MA, HIGH); //电机A正转
-
-analogWrite(PWMA, 200); //电机A速度为200
-
-digitalWrite(MB, HIGH); //电机B正转
-
-analogWrite(PWMB, 200); //电机B速度为200
-
-}
-
-void back() { //小车后退
-
-digitalWrite(MA, LOW); //电机A反转
-
-analogWrite(PWMA, 200); //电机A速度为200
-
-digitalWrite(MB, LOW); //电机B反转
-
-analogWrite(PWMB, 200); //电机B速度为200
-
-}
-
-void turnL() { //小车左转
-
-digitalWrite(MB, LOW); //电机B反转
-
-analogWrite(PWMB, 200); //电机B速度为200
-
-digitalWrite(MA, HIGH); //电机A正转
-
-analogWrite(PWMA, 200); //电机A速度为200
-
-}
-
-void turnR() { //小车右转
-
-digitalWrite(MA, LOW); //电机A反转
-
-analogWrite(PWMA, 200); //电机A速度为200
-
-digitalWrite(MB, HIGH); //电机B正转
-
-analogWrite(PWMB, 200); //电机B速度为200
-
-}
-
-void stopp() { //小车停止
-
-analogWrite(PWMA, 0); //电机A速度为0
-
-analogWrite(PWMB, 0); //电机B速度为0
-
+void stopp() // 小车停止
+{
+    analogWrite(PWMA, 0);    // 电机A速度为0
+    analogWrite(PWMB, 0);    // 电机B速度为0
 }
 ```
 好了，
@@ -2817,231 +2290,150 @@ http://www.keyes-robot.com
 
 */
 
-int l_sensorPin = A1; //定义左边避障传感器接A1
+int l_sensorPin = A1; // 定义左边避障传感器接A1
+int r_sensorPin = A2; // 定义右边避障传感器接A2
 
-int r_sensorPin = A2; //定义右边避障传感器接A2
+int l_val, r_val; // 定义变量，用于存储避障传感器的值
 
-int l_val, r_val;
+int trigPin = 12; // 定义TRIG引脚接D12
+int echoPin = 13; // 定义ECHO引脚接D13
 
-int trigPin = 12; //定义TRIG引脚接D12
+int distance;     // 定义变量，用于存储测得的距离
 
-int echoPin = 13; //定义ECHO引脚接D13
+int beeppin = 3; // 定义蜂鸣器连接的引脚为数字口3
 
-int distance;
+int MA = 2;    // 定义电机A方向控制引脚为D2
+int PWMA = 6;  // 定义电机A速度控制引脚为D6
+int MB = 4;    // 定义电机B方向控制引脚为D4
+int PWMB = 5;  // 定义电机B速度控制引脚为D5
 
-int beeppin = 3; // 蜂鸣器的pin
-
-int MA = 2; //定义电机A方向控制引脚为D2
-
-int PWMA = 6; //定义电机A速度控制引脚为D6
-
-int MB = 4; //定义电机A方向控制引脚为D4
-
-int PWMB = 5; //定义电机A速度控制引脚为D5
-
-void setup ()
-
+void setup() 
 {
+    Serial.begin(9600); // 初始化串口通信，设置波特率为9600
 
-Serial.begin(9600); //测量结果将通过此串口输出至 PC 上的串口监视器
+    pinMode(l_sensorPin, INPUT);  // 设置左边避障传感器为输入模式
+    pinMode(r_sensorPin, INPUT);  // 设置右边避障传感器为输入模式
+    pinMode(echoPin, INPUT);      // 设置ECHO引脚为输入模式
+    pinMode(trigPin, OUTPUT);     // 设置TRIG引脚为输出模式
+    pinMode(beeppin, OUTPUT);     // 设置蜂鸣器引脚为输出模式
 
-pinMode(l_sensorPin, INPUT);//将l_sensorPin设置为输入
-
-pinMode(r_sensorPin, INPUT);//将r_sensorPin设置为输入
-
-pinMode(echoPin, INPUT); //设置EchoPin 为输入模式
-
-pinMode(trigPin, OUTPUT); //设置超声波数字IO脚模式，OUTPUT为输出
-
-pinMode(beeppin, OUTPUT); //设置蜂鸣器引脚输出模式
-
-pinMode(MA, OUTPUT); //配置电机引脚为输出模式
-
-pinMode(PWMA, OUTPUT);
-
-pinMode(MB, OUTPUT);
-
-pinMode(PWMB, OUTPUT);
-
+    pinMode(MA, OUTPUT);     // 设置电机A方向控制引脚为输出模式
+    pinMode(PWMA, OUTPUT);   // 设置电机A速度控制引脚为输出模式
+    pinMode(MB, OUTPUT);     // 设置电机B方向控制引脚为输出模式
+    pinMode(PWMB, OUTPUT);   // 设置电机B速度控制引脚为输出模式
 }
 
-void loop()
-
+void loop() 
 {
+    get_distance(); // 调用测距函数
+    l_val = digitalRead(l_sensorPin); // 读取左边避障传感器的值
+    r_val = digitalRead(r_sensorPin); // 读取右边避障传感器的值
 
-get_distance(); //调用测距函数
-
-l_val = digitalRead(l_sensorPin);//读取避障传感器的值
-
-r_val = digitalRead(r_sensorPin);
-
-if (distance > 10) { //前方距离大于10cm时
-
-if (l_val == 1 && r_val == 1) { //如果左右两边都没有障碍物，前进
-
-advance();
-
+    if (distance > 10) // 如果前方距离大于10厘米
+    {
+        if (l_val == 1 && r_val == 1) // 如果左右两边都没有障碍物
+        {
+            advance(); // 小车前进
+        }
+        else if (l_val == 0 && r_val == 1) // 如果左边有障碍物，右边没有
+        {
+            turnR(); // 小车右转
+            buzzer(); // 蜂鸣器报警
+        }
+        else if (l_val == 1 && r_val == 0) // 如果右边有障碍物，左边没有
+        {
+            turnL(); // 小车左转
+            buzzer(); // 蜂鸣器报警
+        }
+        else // 如果左右两边都有障碍物
+        {
+            buzzer(); // 蜂鸣器报警
+            back();   // 小车后退
+            delay(200); // 延迟200毫秒
+            turnL();  // 小车左转
+            delay(200); // 延迟200毫秒
+        }
+    }
+    else // 如果前方距离小于等于10厘米
+    {
+        buzzer(); // 蜂鸣器报警
+        if (l_val == 1 && r_val == 1) // 如果左右两边都没有障碍物
+        {
+            turnL(); // 小车左转
+        }
+        else if (l_val == 0 && r_val == 1) // 如果左边有障碍物，右边没有
+        {
+            turnR(); // 小车右转
+        }
+        else if (l_val == 1 && r_val == 0) // 如果右边有障碍物，左边没有
+        {
+            turnL(); // 小车左转
+        }
+        else // 如果左右两边都有障碍物
+        {
+            back();   // 小车后退
+            delay(200); // 延迟200毫秒
+            turnL();  // 小车左转
+            delay(200); // 延迟200毫秒
+        }
+    }
 }
 
-else if (l_val == 0 && r_val == 1) {
-//否则如果左边有障碍物，右边没有，右转
-
-turnR();
-
-buzzer(); //报警
-
-}
-
-else if (l_val == 1 && r_val == 0) {
-//否则如果右边有障碍物，左边没有，左转
-
-turnL();
-
-buzzer(); //报警
-
-}
-
-else { //否则左右两边都有障碍物，后退再左转
-
-buzzer(); //报警
-
-back();
-
-delay(200);
-
-turnL();
-
-delay(200);
-
-}
-
-}
-
-else { //前方距离小于等于10cm时
-
-buzzer(); //报警
-
-if (l_val == 1 && r_val == 1) { //如果左右两边都没有障碍物，左转
-
-turnL();
-
-}
-
-else if (l_val == 0 && r_val == 1) { //如果左边有障碍物，右边没有，右转
-
-turnR();
-
-}
-
-else if (l_val == 1 && r_val == 0) { //如果右边有障碍物，左边没有，左转
-
-turnL();
-
-}
-
-else { //否则左右两边都有障碍物，后退再左转
-
-back();
-
-delay(200);
-
-turnL();
-
-delay(200);
-
-}
-
-}
-
-}
-
-void get_distance() {
-
-digitalWrite(trigPin, LOW); // 通过Trig/Pin 发送脉冲，触发 HC-SR04
-测距，使发出发出超声波信号接口低电平2μs
-
-delayMicroseconds(2);
-
-digitalWrite(trigPin, HIGH); //
-使发出发出超声波信号接口高电平10μs，这里是至少10μs
-
-delayMicroseconds(10);
-
-digitalWrite(trigPin, LOW); // 保持发出超声波信号接口低电平
-
-distance = pulseIn(echoPin, HIGH) / 58; //
-读出脉冲时间,将脉冲时间转化为距离（单位：厘米）
-
-Serial.println(distance); //输出距离值
-
-}
-
-void buzzer() //蜂鸣器报警
-
+void get_distance() // 超声波测距函数
 {
+    digitalWrite(trigPin, LOW);  // 拉低TRIG引脚
+    delayMicroseconds(2);        // 延迟2微秒
+    digitalWrite(trigPin, HIGH); // 拉高TRIG引脚至少10微秒触发
+    delayMicroseconds(10);       // 延迟10微秒
+    digitalWrite(trigPin, LOW);  // 拉低TRIG引脚
 
-tone(beeppin, 900);
-
-delay(100); //响声间隔100ms 听上去更急促
-
-noTone(beeppin);
-
+    distance = pulseIn(echoPin, HIGH) / 58; // 计算距离（单位：厘米）
+    Serial.println(distance);              // 在串口监视器中打印距离
 }
 
-void advance() { //小车前进
-
-digitalWrite(MA, HIGH); //电机A正转
-
-analogWrite(PWMA, 200); //电机A速度为200
-
-digitalWrite(MB, HIGH); //电机B正转
-
-analogWrite(PWMB, 200); //电机B速度为200
-
+void buzzer() // 蜂鸣器报警函数
+{
+    tone(beeppin, 900); // 蜂鸣器发出900Hz的声音
+    delay(100);         // 响声持续100毫秒
+    noTone(beeppin);    // 停止蜂鸣器
 }
 
-void back() { //小车后退
-
-digitalWrite(MA, LOW); //电机A反转
-
-analogWrite(PWMA, 200); //电机A速度为200
-
-digitalWrite(MB, LOW); //电机B反转
-
-analogWrite(PWMB, 200); //电机B速度为200
-
+void advance() // 小车前进
+{
+    digitalWrite(MA, HIGH);  // 电机A正转
+    analogWrite(PWMA, 200);  // 电机A速度为200
+    digitalWrite(MB, HIGH);  // 电机B正转
+    analogWrite(PWMB, 200);  // 电机B速度为200
 }
 
-void turnL() { //小车左转
-
-digitalWrite(MB, LOW); //电机B反转
-
-analogWrite(PWMB, 200); //电机B速度为200
-
-digitalWrite(MA, HIGH); //电机A正转
-
-analogWrite(PWMA, 200); //电机A速度为200
-
+void back() // 小车后退
+{
+    digitalWrite(MA, LOW);   // 电机A反转
+    analogWrite(PWMA, 200);  // 电机A速度为200
+    digitalWrite(MB, LOW);   // 电机B反转
+    analogWrite(PWMB, 200);  // 电机B速度为200
 }
 
-void turnR() { //小车右转
-
-digitalWrite(MA, LOW); //电机A反转
-
-analogWrite(PWMA, 200); //电机A速度为200
-
-digitalWrite(MB, HIGH); //电机B正转
-
-analogWrite(PWMB, 200); //电机B速度为200
-
+void turnL() // 小车左转
+{
+    digitalWrite(MB, LOW);   // 电机B反转
+    analogWrite(PWMB, 200);  // 电机B速度为200
+    digitalWrite(MA, HIGH);  // 电机A正转
+    analogWrite(PWMA, 200);  // 电机A速度为200
 }
 
-void stopp() { //小车停止
+void turnR() // 小车右转
+{
+    digitalWrite(MA, LOW);   // 电机A反转
+    analogWrite(PWMA, 200);  // 电机A速度为200
+    digitalWrite(MB, HIGH);  // 电机B正转
+    analogWrite(PWMB, 200);  // 电机B速度为200
+}
 
-analogWrite(PWMA, 0); //电机A速度为0
-
-analogWrite(PWMB, 0); //电机B速度为0
-
+void stopp() // 小车停止
+{
+    analogWrite(PWMA, 0);    // 电机A速度为0
+    analogWrite(PWMB, 0);    // 电机B速度为0
 }
 ```
 测试结果
@@ -3087,122 +2479,88 @@ http://www.keyes-robot.com
 
 */
 
-#include <IRremote.h>
+#include <IRremote.h> // 引入IRremote库
 
-int RECV_PIN = A3; //定义IO口A3
+int RECV_PIN = A3; // 定义红外接收器连接的引脚为A3
 
-IRrecv irrecv(RECV_PIN);
+IRrecv irrecv(RECV_PIN); // 创建红外接收对象
+decode_results results;  // 定义解码结果存储变量
 
-decode_results results;//声明一个IRremote库函数独有的变量类型
+int IR_val; // 定义变量，用于存储红外接收到的值
 
-int IR_val;
+int MA = 2;    // 定义电机A方向控制引脚为D2
+int PWMA = 6;  // 定义电机A速度控制引脚为D6
+int MB = 4;    // 定义电机B方向控制引脚为D4
+int PWMB = 5;  // 定义电机B速度控制引脚为D5
 
-int MA = 2; //定义电机A方向控制引脚为D2
-
-int PWMA = 6; //定义电机A速度控制引脚为D6
-
-int MB = 4; //定义电机A方向控制引脚为D4
-
-int PWMB = 5; //定义电机A速度控制引脚为D5
-
-void advance() { //小车前进
-
-digitalWrite(MA, HIGH); //电机A正转
-
-analogWrite(PWMA, 200); //电机A速度为200
-
-digitalWrite(MB, HIGH); //电机B正转
-
-analogWrite(PWMB, 200); //电机B速度为200
-
+void advance() // 小车前进
+{
+    digitalWrite(MA, HIGH);  // 电机A正转
+    analogWrite(PWMA, 200);  // 电机A速度为200
+    digitalWrite(MB, HIGH);  // 电机B正转
+    analogWrite(PWMB, 200);  // 电机B速度为200
 }
 
-void back() { //小车后退
-
-digitalWrite(MA, LOW); //电机A反转
-
-analogWrite(PWMA, 200); //电机A速度为200
-
-digitalWrite(MB, LOW); //电机B反转
-
-analogWrite(PWMB, 200); //电机B速度为200
-
+void back() // 小车后退
+{
+    digitalWrite(MA, LOW);   // 电机A反转
+    analogWrite(PWMA, 200);  // 电机A速度为200
+    digitalWrite(MB, LOW);   // 电机B反转
+    analogWrite(PWMB, 200);  // 电机B速度为200
 }
 
-void turnL() { //小车左转
-
-digitalWrite(MB, LOW); //电机B反转
-
-analogWrite(PWMB, 200); //电机B速度为200
-
-digitalWrite(MA, HIGH); //电机A正转
-
-analogWrite(PWMA, 200); //电机A速度为200
-
+void turnL() // 小车左转
+{
+    digitalWrite(MB, LOW);   // 电机B反转
+    analogWrite(PWMB, 200);  // 电机B速度为200
+    digitalWrite(MA, HIGH);  // 电机A正转
+    analogWrite(PWMA, 200);  // 电机A速度为200
 }
 
-void turnR() { //小车右转
-
-digitalWrite(MA, LOW); //电机A反转
-
-analogWrite(PWMA, 200); //电机A速度为200
-
-digitalWrite(MB, HIGH); //电机B正转
-
-analogWrite(PWMB, 200); //电机B速度为200
-
+void turnR() // 小车右转
+{
+    digitalWrite(MA, LOW);   // 电机A反转
+    analogWrite(PWMA, 200);  // 电机A速度为200
+    digitalWrite(MB, HIGH);  // 电机B正转
+    analogWrite(PWMB, 200);  // 电机B速度为200
 }
 
-void stopp() { //小车停止
-
-analogWrite(PWMA, 0); //电机A速度为0
-
-analogWrite(PWMB, 0); //电机B速度为0
-
+void stopp() // 小车停止
+{
+    analogWrite(PWMA, 0);    // 电机A速度为0
+    analogWrite(PWMB, 0);    // 电机B速度为0
 }
 
-void setup() {
+void setup() 
+{
+    Serial.begin(9600);      // 初始化串口通信，设置波特率为9600
 
-Serial.begin(9600); //设置波特率为9600
+    pinMode(MA, OUTPUT);     // 设置电机A方向控制引脚为输出模式
+    pinMode(PWMA, OUTPUT);   // 设置电机A速度控制引脚为输出模式
+    pinMode(MB, OUTPUT);     // 设置电机B方向控制引脚为输出模式
+    pinMode(PWMB, OUTPUT);   // 设置电机B速度控制引脚为输出模式
 
-pinMode(MA, OUTPUT); //配置电机引脚为输出模式
-
-pinMode(PWMA, OUTPUT);
-
-pinMode(MB, OUTPUT);
-
-pinMode(PWMB, OUTPUT);
-
-irrecv.enableIRIn();// 使能红外接收
-
+    irrecv.enableIRIn();     // 使能红外接收
 }
 
-void loop() {
+void loop() 
+{
+    if (irrecv.decode(&results)) // 如果接收到红外信号
+    {
+        IR_val = results.value; // 获取红外信号的值
+        Serial.println(IR_val, HEX); // 在串口监视器中以16进制打印红外信号值
 
-if (irrecv.decode(&results)) { //是否接收到红外遥控信号
+        switch (IR_val) // 根据红外信号值执行相应操作
+        {
+            case 0xFF629D: advance(); break; // 接收到前进信号，小车前进
+            case 0xFFA857: back(); break;    // 接收到后退信号，小车后退
+            case 0xFF22DD: turnL(); break;   // 接收到左转信号，小车左转
+            case 0xFFC23D: turnR(); break;   // 接收到右转信号，小车右转
+            case 0xFF02FD: stopp(); break;   // 接收到停止信号，小车停止
+        }
 
-IR_val = results.value;
-
-Serial.println(IR_val, HEX); //串口打印数据
-
-switch (IR_val) {
-
-case 0xFF629D: advance(); break;
-
-case 0xFFA857: back(); break;
-
-case 0xFF22DD: turnL(); break;
-
-case 0xFFC23D: turnR(); break;
-
-case 0xFF02FD: stopp(); break;
-
-}
-
-irrecv.resume();// 接收下个数据
-
-}
-
+        irrecv.resume(); // 继续接收下一个红外信号
+    }
 }
 ```
 好了，上传程序，红外遥控器对准红外接收器，按下红外遥控器对应按键，看看效果吧！（注意：在上传测试代码前，需要把蓝牙模块取下，否则测试代码会上传失败。需要上传代码成功后，再连接蓝牙模块。）
@@ -3330,138 +2688,95 @@ http://www.keyes-robot.com
 
 */
 
-int MA = 2; //定义电机A方向控制引脚为D2
+int MA = 2;    // 定义电机A方向控制引脚为D2
+int PWMA = 6;  // 定义电机A速度控制引脚为D6
+int MB = 4;    // 定义电机B方向控制引脚为D4
+int PWMB = 5;  // 定义电机B速度控制引脚为D5
 
-int PWMA = 6; //定义电机A速度控制引脚为D6
+char blue_val; // 定义变量，用于存储蓝牙接收到的值
 
-int MB = 4; //定义电机A方向控制引脚为D4
+void setup() 
+{
+    Serial.begin(9600);      // 初始化串口通信，设置波特率为9600
 
-int PWMB = 5; //定义电机A速度控制引脚为D5
-
-char blue_val;
-
-void setup() {
-
-Serial.begin(9600); //设置波特率为9600
-
-pinMode(MA, OUTPUT); //配置电机引脚为输出模式
-
-pinMode(PWMA, OUTPUT);
-
-pinMode(MB, OUTPUT);
-
-pinMode(PWMB, OUTPUT);
-
+    pinMode(MA, OUTPUT);     // 设置电机A方向控制引脚为输出模式
+    pinMode(PWMA, OUTPUT);   // 设置电机A速度控制引脚为输出模式
+    pinMode(MB, OUTPUT);     // 设置电机B方向控制引脚为输出模式
+    pinMode(PWMB, OUTPUT);   // 设置电机B速度控制引脚为输出模式
 }
 
-void loop() {
+void loop() 
+{
+    if (Serial.available() > 0) // 如果串口缓存区有数据
+    {
+        blue_val = Serial.read(); // 读取蓝牙信号
+        Serial.println(blue_val); // 在串口监视器中打印蓝牙信号
 
-if (Serial.available() > 0) { //接收到蓝牙信号
-
-blue_val = Serial.read(); //接收到的信号赋给blue_val
-
-Serial.println(blue_val); //串口监视器显示蓝牙信号
-
-switch (blue_val) {
-
-case 'F': advance(); break; //接收到‘F’前进
-
-case 'B': back(); break; //接收到‘B’后退
-
-case 'L': turnL(); break; //接收到‘L’左旋转
-
-case 'R': turnR(); break; //接收到‘R’右旋转
-
-case 'Q': turnL1(); break; //接收到‘L’左转弯
-
-case 'E': turnR1(); break; //接收到‘R’右转弯
-
-case 'S': stopp(); break; //接收到‘S’停止
-
+        switch (blue_val) // 根据蓝牙信号执行相应操作
+        {
+            case 'F': advance(); break; // 接收到'F'，小车前进
+            case 'B': back(); break;    // 接收到'B'，小车后退
+            case 'L': turnL(); break;   // 接收到'L'，小车左旋转
+            case 'R': turnR(); break;   // 接收到'R'，小车右旋转
+            case 'Q': turnL1(); break;  // 接收到'Q'，小车左转弯
+            case 'E': turnR1(); break;  // 接收到'E'，小车右转弯
+            case 'S': stopp(); break;   // 接收到'S'，小车停止
+        }
+    }
 }
 
+void advance() // 小车前进
+{
+    digitalWrite(MA, HIGH);  // 电机A正转
+    analogWrite(PWMA, 200);  // 电机A速度为200
+    digitalWrite(MB, HIGH);  // 电机B正转
+    analogWrite(PWMB, 200);  // 电机B速度为200
 }
 
+void back() // 小车后退
+{
+    digitalWrite(MA, LOW);   // 电机A反转
+    analogWrite(PWMA, 200);  // 电机A速度为200
+    digitalWrite(MB, LOW);   // 电机B反转
+    analogWrite(PWMB, 200);  // 电机B速度为200
 }
 
-void advance() { //小车前进
-
-digitalWrite(MA, HIGH); //电机A正转
-
-analogWrite(PWMA, 200); //电机A速度为200
-
-digitalWrite(MB, HIGH); //电机B正转
-
-analogWrite(PWMB, 200); //电机B速度为200
-
+void turnL() // 小车左旋转
+{
+    digitalWrite(MB, LOW);   // 电机B反转
+    analogWrite(PWMB, 200);  // 电机B速度为200
+    digitalWrite(MA, HIGH);  // 电机A正转
+    analogWrite(PWMA, 200);  // 电机A速度为200
 }
 
-void back() { //小车后退
-
-digitalWrite(MA, LOW); //电机A反转
-
-analogWrite(PWMA, 200); //电机A速度为200
-
-digitalWrite(MB, LOW); //电机B反转
-
-analogWrite(PWMB, 200); //电机B速度为200
-
+void turnL1() // 小车左转弯
+{
+    digitalWrite(MA, HIGH);  // 电机A正转
+    analogWrite(PWMA, 200);  // 电机A速度为200
+    digitalWrite(MB, HIGH);  // 电机B正转
+    analogWrite(PWMB, 100);  // 电机B速度为100
 }
 
-void turnL() { //小车左旋转
-
-digitalWrite(MB, LOW); //电机B反转
-
-analogWrite(PWMB, 200); //电机B速度为200
-
-digitalWrite(MA, HIGH); //电机A正转
-
-analogWrite(PWMA, 200); //电机A速度为200
-
+void turnR() // 小车右旋转
+{
+    digitalWrite(MA, LOW);   // 电机A反转
+    analogWrite(PWMA, 200);  // 电机A速度为200
+    digitalWrite(MB, HIGH);  // 电机B正转
+    analogWrite(PWMB, 200);  // 电机B速度为200
 }
 
-void turnL1() { //小车左转弯
-
-digitalWrite(MA, HIGH); //电机A正转
-
-analogWrite(PWMA, 200); //电机A速度为200
-
-digitalWrite(MB, HIGH); //电机B正转
-
-analogWrite(PWMB, 100); //电机B速度为100
-
+void turnR1() // 小车右转弯
+{
+    digitalWrite(MA, HIGH);  // 电机A正转
+    analogWrite(PWMA, 100);  // 电机A速度为100
+    digitalWrite(MB, HIGH);  // 电机B正转
+    analogWrite(PWMB, 200);  // 电机B速度为200
 }
 
-void turnR() { //小车右旋转
-
-digitalWrite(MA, LOW); //电机A反转
-
-analogWrite(PWMA, 200); //电机A速度为200
-
-digitalWrite(MB, HIGH); //电机B正转
-
-analogWrite(PWMB, 200); //电机B速度为200
-
-}
-
-void turnR1() { //小车右转弯
-
-digitalWrite(MA, HIGH); //电机A正转
-
-analogWrite(PWMA, 100); //电机A速度为100
-
-digitalWrite(MB, HIGH); //电机B正转
-
-analogWrite(PWMB, 200); //电机B速度为200
-
-}
-
-void stopp() { //小车停止
-
-analogWrite(PWMA, 0); //电机A速度为0
-
-analogWrite(PWMB, 0); //电机B速度为0
-
+void stopp() // 小车停止
+{
+    analogWrite(PWMA, 0);    // 电机A速度为0
+    analogWrite(PWMB, 0);    // 电机B速度为0
 }
 ```
 好了，按住蓝牙APP的前进、后退、左转弯、右转弯、停止、左旋转、右旋转的按钮控制桌面迷你蓝牙智能车分别前进、后退、左转弯、右转弯、停止、左旋转、右旋转的程序代码全编写完了。上传程序，看看效果。（在上传测试代码前，需要把蓝牙模块取下，否则代码会上传失败。需要上传代码成功后，再连接蓝牙模块。）
@@ -3502,192 +2817,131 @@ http://www.keyes-robot.com
 
 */
 
-int MA = 2; //定义电机A方向控制引脚为D2
+int MA = 2;    // 定义电机A方向控制引脚为D2
+int PWMA = 6;  // 定义电机A速度控制引脚为D6
+int MB = 4;    // 定义电机B方向控制引脚为D4
+int PWMB = 5;  // 定义电机B速度控制引脚为D5
 
-int PWMA = 6; //定义电机A速度控制引脚为D6
+int speeds = 200; // 初始化速度为200
 
-int MB = 4; //定义电机A方向控制引脚为D4
+char blue_val; // 定义变量，用于存储蓝牙接收到的值
 
-int PWMB = 5; //定义电机A速度控制引脚为D5
+void setup() 
+{
+    Serial.begin(9600);      // 初始化串口通信，设置波特率为9600
 
-int speeds = 200; //初始化速度为200
-
-char blue_val;
-
-void setup() {
-
-Serial.begin(9600); //设置波特率为9600
-
-pinMode(MA, OUTPUT); //配置电机引脚为输出模式
-
-pinMode(PWMA, OUTPUT);
-
-pinMode(MB, OUTPUT);
-
-pinMode(PWMB, OUTPUT);
-
+    pinMode(MA, OUTPUT);     // 设置电机A方向控制引脚为输出模式
+    pinMode(PWMA, OUTPUT);   // 设置电机A速度控制引脚为输出模式
+    pinMode(MB, OUTPUT);     // 设置电机B方向控制引脚为输出模式
+    pinMode(PWMB, OUTPUT);   // 设置电机B速度控制引脚为输出模式
 }
 
-void loop() {
+void loop() 
+{
+    if (Serial.available() > 0) // 如果串口缓存区有数据
+    {
+        blue_val = Serial.read(); // 读取蓝牙信号
+        Serial.println(blue_val); // 在串口监视器中打印蓝牙信号
 
-if (Serial.available() > 0) { //接收到蓝牙信号
-
-blue_val = Serial.read(); //接收到的信号赋给blue_val
-
-Serial.println(blue_val); //串口监视器显示蓝牙信号
-
-switch (blue_val) {
-
-case 'F': advance(); break; //接收到‘F’前进
-
-case 'B': back(); break; //接收到‘B’后退
-
-case 'L': turnL(); break; //接收到‘L’左转
-
-case 'R': turnR(); break; //接收到‘R’右转
-
-case 'Q': turnL1(); break; //接收到‘L’左转弯
-
-case 'E': turnR1(); break; //接收到‘R’右转弯
-
-case 'S': stopp(); break; //接收到‘S’停止
-
-case 'W': speeds_a(); break; //接收到‘W’加速
-
-case 'Z': speeds_d(); break; //接收到‘Z’减速
-
+        switch (blue_val) // 根据蓝牙信号执行相应操作
+        {
+            case 'F': advance(); break; // 接收到'F'，小车前进
+            case 'B': back(); break;    // 接收到'B'，小车后退
+            case 'L': turnL(); break;   // 接收到'L'，小车左旋转
+            case 'R': turnR(); break;   // 接收到'R'，小车右旋转
+            case 'Q': turnL1(); break;  // 接收到'Q'，小车左转弯
+            case 'E': turnR1(); break;  // 接收到'E'，小车右转弯
+            case 'S': stopp(); break;   // 接收到'S'，小车停止
+            case 'W': speeds_a(); break; // 接收到'W'，加速
+            case 'Z': speeds_d(); break; // 接收到'Z'，减速
+        }
+    }
 }
 
+void advance() // 小车前进
+{
+    digitalWrite(MA, HIGH);  // 电机A正转
+    analogWrite(PWMA, speeds); // 电机A速度为speeds
+    digitalWrite(MB, HIGH);  // 电机B正转
+    analogWrite(PWMB, speeds); // 电机B速度为speeds
 }
 
+void back() // 小车后退
+{
+    digitalWrite(MA, LOW);   // 电机A反转
+    analogWrite(PWMA, speeds); // 电机A速度为speeds
+    digitalWrite(MB, LOW);   // 电机B反转
+    analogWrite(PWMB, speeds); // 电机B速度为speeds
 }
 
-void advance() { //小车前进
-
-digitalWrite(MA, HIGH); //电机A正转
-
-analogWrite(PWMA, speeds); //电机A速度为speeds
-
-digitalWrite(MB, HIGH); //电机B正转
-
-analogWrite(PWMB, speeds); //电机B速度为speeds
-
+void turnL() // 小车左旋转
+{
+    digitalWrite(MB, LOW);   // 电机B反转
+    analogWrite(PWMB, speeds); // 电机B速度为speeds
+    digitalWrite(MA, HIGH);  // 电机A正转
+    analogWrite(PWMA, speeds); // 电机A速度为speeds
 }
 
-void back() { //小车后退
-
-digitalWrite(MA, LOW); //电机A反转
-
-analogWrite(PWMA, speeds); //电机A速度为speeds
-
-digitalWrite(MB, LOW); //电机B反转
-
-analogWrite(PWMB, speeds); //电机B速度为speeds
-
+void turnL1() // 小车左转弯
+{
+    digitalWrite(MA, HIGH);  // 电机A正转
+    analogWrite(PWMA, 200);  // 电机A速度为200
+    digitalWrite(MB, HIGH);  // 电机B正转
+    analogWrite(PWMB, 100);  // 电机B速度为100
 }
 
-void turnL() { //小车左旋转
-
-digitalWrite(MB, LOW); //电机B反转
-
-analogWrite(PWMB, speeds); //电机B速度为speeds
-
-digitalWrite(MA, HIGH); //电机A正转
-
-analogWrite(PWMA, speeds); //电机A速度为speeds
-
+void turnR() // 小车右旋转
+{
+    digitalWrite(MA, LOW);   // 电机A反转
+    analogWrite(PWMA, speeds); // 电机A速度为speeds
+    digitalWrite(MB, HIGH);  // 电机B正转
+    analogWrite(PWMB, speeds); // 电机B速度为speeds
 }
 
-void turnL1() { //小车左转弯
-
-digitalWrite(MA, HIGH); //电机A正转
-
-analogWrite(PWMA, 200); //电机A速度为200
-
-digitalWrite(MB, HIGH); //电机B正转
-
-analogWrite(PWMB, 100); //电机B速度为100
-
+void turnR1() // 小车右转弯
+{
+    digitalWrite(MA, HIGH);  // 电机A正转
+    analogWrite(PWMA, 100);  // 电机A速度为100
+    digitalWrite(MB, HIGH);  // 电机B正转
+    analogWrite(PWMB, 200);  // 电机B速度为200
 }
 
-void turnR() { //小车右旋转
-
-digitalWrite(MA, LOW); //电机A反转
-
-analogWrite(PWMA, speeds); //电机A速度为speeds
-
-digitalWrite(MB, HIGH); //电机B正转
-
-analogWrite(PWMB, speeds); //电机B速度为speeds
-
+void stopp() // 小车停止
+{
+    analogWrite(PWMA, 0);    // 电机A速度为0
+    analogWrite(PWMB, 0);    // 电机B速度为0
 }
 
-void turnR1() { //小车右转弯
-
-digitalWrite(MA, HIGH); //电机A正转
-
-analogWrite(PWMA, 100); //电机A速度为100
-
-digitalWrite(MB, HIGH); //电机B正转
-
-analogWrite(PWMB, 200); //电机B速度为200
-
+void speeds_a() // 增速函数
+{
+    int a_flag = 1; // 用于while循环
+    while (a_flag) 
+    {
+        Serial.println(speeds); // 显示当前速度
+        if (speeds < 255) // 如果速度小于255
+        {
+            speeds++; // 速度增加
+            delay(10); // 延迟10毫秒，调节增速速度
+        }
+        blue_val = Serial.read(); // 读取蓝牙信号
+        if (blue_val == 'S') a_flag = 0; // 如果接收到'S'，停止加速
+    }
 }
 
-void stopp() { //小车停止
-
-analogWrite(PWMA, 0); //电机A速度为0
-
-analogWrite(PWMB, 0); //电机B速度为0
-
-}
-
-void speeds_a() { //增速函数
-
-int a_flag = 1; //用于while循环
-
-while (a_flag) {
-
-Serial.println(speeds); //显示速度
-
-if (speeds < 255) { //最大增到255
-
-speeds++;
-
-delay(10); //调节增速的速度
-
-}
-
-blue_val = Serial.read();
-
-if (blue_val == 'S')a_flag = 0; //接收到‘S’停止加速
-
-}
-
-}
-
-void speeds_d() { //减速函数
-
-int d_flag = 1; //用于while循环
-
-while (d_flag) {
-
-Serial.println(speeds); //显示速度
-
-if (speeds > 0) { //最小减到0
-
-speeds--;
-
-delay(10); //调节减速的速度
-
-}
-
-blue_val = Serial.read();
-
-if (blue_val == 'S')d_flag = 0; //接收到‘S’停止减速
-
-}
-
+void speeds_d() // 减速函数
+{
+    int d_flag = 1; // 用于while循环
+    while (d_flag) 
+    {
+        Serial.println(speeds); // 显示当前速度
+        if (speeds > 0) // 如果速度大于0
+        {
+            speeds--; // 速度减少
+            delay(10); // 延迟10毫秒，调节减速速度
+        }
+        blue_val = Serial.read(); // 读取蓝牙信号
+        if (blue_val == 'S') d_flag = 0; // 如果接收到'S'，停止减速
+    }
 }
 ```
 测试结果：
@@ -3739,723 +2993,508 @@ http://www.keyes-robot.com
 */
 
 #define D0 -1
-
 #define D1 262
-
 #define D2 293
-
 #define D3 329
-
 #define D4 349
-
 #define D5 392
-
 #define D6 440
-
 #define D7 494
-
 #define M1 523
-
 #define M2 586
-
 #define M3 658
-
 #define M4 697
-
 #define M5 783
-
 #define M6 879
-
 #define M7 987
-
 #define H1 1045
-
 #define H2 1171
-
 #define H3 1316
-
 #define H4 1393
-
 #define H5 1563
-
 #define H6 1755
-
 #define H7 1971
 
 //列出全部D调的频率
 
 #define WHOLE 1
-
 #define HALF 0.5
-
 #define QUARTER 0.25
-
 #define EIGHTH 0.25
-
 #define SIXTEENTH 0.625
 
 //列出所有节拍
 
-int tune\[\] = //根据简谱列出各频率
-
+int tune[] = //根据简谱列出各频率
 {
-
-D5, D5, D6, D5, M1, D7,
-
-D5, D5, D6, D5, M2, M1,
-
-D5, D5, M5, M3, M1, D7, D6,
-
-M4, M4, M3, M1, M2, M1
-
+    D5, D5, D6, D5, M1, D7,
+    D5, D5, D6, D5, M2, M1,
+    D5, D5, M5, M3, M1, D7, D6,
+    M4, M4, M3, M1, M2, M1
 };
 
-float durt\[\] = //根据简谱列出各节拍
-
+float durt[] = //根据简谱列出各节拍
 {
-
-0.5, 0.5, 1, 1, 1, 1 + 1,
-
-0.5, 0.5, 1, 1, 1, 1 + 1,
-
-0.5, 0.5, 1, 1, 1, 1, 1,
-
-0.5, 0.5, 1, 1, 1, 1 + 1
-
+    0.5, 0.5, 1, 1, 1, 1 + 1,
+    0.5, 0.5, 1, 1, 1, 1 + 1,
+    0.5, 0.5, 1, 1, 1, 1, 1,
+    0.5, 0.5, 1, 1, 1, 1 + 1
 };
 
-\#include <IRremoteTank.h> //导入红外的库
+#include <IRremoteTank.h> //导入红外的库
 
 int RECV_PIN = A3; //定义IO口A3
-
 IRrecv irrecv(RECV_PIN);
-
-decode_results results;//声明一个IRremote库函数独有的变量类型
-
+decode_results results; //声明一个IRremote库函数独有的变量类型
 int IR_val;
-
 char blue_val;
-
 int beeppin = 3; // 蜂鸣器的pin
-
 int length;
-
 int L_pin = 11; //定义左边传感器引脚为D11
-
 int M_pin = 7; //定义中间传感器引脚为D7
-
 int R_pin = 8; //定义右边传感器引脚为D8
-
 int L_val, M_val, R_val;
-
 int MA = 2; //定义电机A方向控制引脚为D2
-
 int PWMA = 6; //定义电机A速度控制引脚为D6
-
 int MB = 4; //定义电机A方向控制引脚为D4
-
 int PWMB = 5; //定义电机A速度控制引脚为D5
-
 int speeds = 200; //初始化速度为200
-
 int l_sensorPin = A1; //左边避障传感器接A1
-
 int r_sensorPin = A2; //右边避障传感器接A2
-
 int l_val, r_val;
-
 int trigPin = 12; //TRIG引脚接D12
-
 int echoPin = 13; //ECHO引脚接D13
-
 int distance;
 
-void setup() {
-
-Serial.begin(9600); //设置波特率为9600
-
-pinMode(beeppin, OUTPUT); //设置蜂鸣器引脚输出模式
-
-length = sizeof(tune) / sizeof(tune\[0\]); //计算长度
-
-pinMode(L_pin, INPUT); //循迹传感器引脚都配置为输入模式
-
-pinMode(M_pin, INPUT);
-
-pinMode(R_pin, INPUT);
-
-pinMode(l_sensorPin, INPUT);//将l_sensorPin设置为输入
-
-pinMode(r_sensorPin, INPUT);//将r_sensorPin设置为输入
-
-pinMode(trigPin, OUTPUT); //定义TRIG为输出模式
-
-pinMode(echoPin, INPUT); //定义ECHO为输入模式
-
-pinMode(MA, OUTPUT); //配置电机引脚为输出模式
-
-pinMode(PWMA, OUTPUT);
-
-pinMode(MB, OUTPUT);
-
-pinMode(PWMB, OUTPUT);
-
-irrecv.enableIRIn();// 使能红外接收
-
+void setup()
+{
+    Serial.begin(9600); //设置波特率为9600
+    pinMode(beeppin, OUTPUT); //设置蜂鸣器引脚输出模式
+    length = sizeof(tune) / sizeof(tune[0]); //计算长度
+    pinMode(L_pin, INPUT); //循迹传感器引脚都配置为输入模式
+    pinMode(M_pin, INPUT);
+    pinMode(R_pin, INPUT);
+    pinMode(l_sensorPin, INPUT); //将l_sensorPin设置为输入
+    pinMode(r_sensorPin, INPUT); //将r_sensorPin设置为输入
+    pinMode(trigPin, OUTPUT); //定义TRIG为输出模式
+    pinMode(echoPin, INPUT); //定义ECHO为输入模式
+    pinMode(MA, OUTPUT); //配置电机引脚为输出模式
+    pinMode(PWMA, OUTPUT);
+    pinMode(MB, OUTPUT);
+    pinMode(PWMB, OUTPUT);
+    irrecv.enableIRIn(); // 使能红外接收
 }
 
-void loop() {
+void loop()
+{
+    if (Serial.available() > 0)
+    { //接收到蓝牙信号
+        blue_val = Serial.read(); //接收到的信号赋给blue_val
+        Serial.println(blue_val); //串口监视器显示蓝牙信号
+        switch (blue_val)
+        {
+        case 'F':
+            advance();
+            break; //接收到‘F’前进
+        case 'B':
+            back();
+            break; //接收到‘B’后退
+        case 'L':
+            turnL();
+            break; //接收到‘L’左旋
+        case 'Q':
+            turnL1();
+            break; //接收到‘Q’左转
+        case 'R':
+            turnR();
+            break; //接收到‘R’右旋
+        case 'E':
+            turnR1();
+            break; //接收到‘E’右转
+        case 'S':
+            stopp();
+            noTone(beeppin);
+            break; //接收到‘S’电机停止转动，功放停止
+        case 'W':
+            speeds_a();
+            break; //接收到‘W’加速
+        case 'Z':
+            speeds_d();
+            break; //接收到‘Z’减速
+        case 'U':
+            follow();
+            break; //接收到‘U’，进入跟随模式
+        case 'Y':
+            avoid();
+            break; //接收到‘Y’，进入避障模式
+        case 'G':
+            prison();
+            break; //接收到‘G’，画地为牢模式
+        case 'X':
+            track();
+            break; //接收到‘X’，巡黑线模式
+        case '1':
+            tone(beeppin, D1);
+            break; //接收到'1',播放音符DO
+        case '2':
+            tone(beeppin, D2);
+            break; //接收到'2',播放音符Re
+        case '3':
+            tone(beeppin, D3);
+            break; //接收到'3',播放音符Mi
+        case '4':
+            tone(beeppin, D4);
+            break; //接收到'4',播放音符Fa
+        case '5':
+            tone(beeppin, D5);
+            break; //接收到'5',播放音符So
+        case '6':
+            tone(beeppin, D6);
+            break; //接收到'6',播放音符La
+        case '7':
+            tone(beeppin, D7);
+            break; //接收到'7',播放音符Si
+        case '8':
+            tone(beeppin, M1);
+            break; //接收到'8',播放音符Do
+        case '9':
+            play();
+            break; //接收到'9',播放音乐
+        }
+    }
 
-if (Serial.available() > 0) { //接收到蓝牙信号
-
-blue_val = Serial.read(); //接收到的信号赋给blue_val
-
-Serial.println(blue_val); //串口监视器显示蓝牙信号
-
-switch (blue_val) {
-
-case 'F': advance(); break; //接收到‘F’前进
-
-case 'B': back(); break; //接收到‘B’后退
-
-case 'L': turnL(); break; //接收到‘L’左旋
-
-case 'Q': turnL1(); break; //接收到‘Q’左转
-
-case 'R': turnR(); break; //接收到‘R’右旋
-
-case 'E': turnR1(); break; //接收到‘E’右转
-
-case 'S': stopp(); noTone(beeppin); break;
-//接收到‘S’电机停止转动，功放停止
-
-case 'W': speeds_a(); break; //接收到‘W’加速
-
-case 'Z': speeds_d(); break; //接收到‘Z’减速
-
-case 'U': follow(); break; //接收到‘U’，进入跟随模式
-
-case 'Y': avoid(); break; //接收到‘Y’，进入避障模式
-
-case 'G': prison(); break; //接收到‘G’，画地为牢模式
-
-case 'X': track(); break; //接收到‘X’，巡黑线模式
-
-case '1': tone(beeppin, D1); break; //接收到'1',播放音符DO
-
-case '2': tone(beeppin, D2); break; //接收到'2',播放音符Re
-
-case '3': tone(beeppin, D3); break; //接收到'3',播放音符Mi
-
-case '4': tone(beeppin, D4); break; //接收到'4',播放音符Fa
-
-case '5': tone(beeppin, D5); break; //接收到'5',播放音符So
-
-case '6': tone(beeppin, D6); break; //接收到'6',播放音符La
-
-case '7': tone(beeppin, D7); break; //接收到'7',播放音符Si
-
-case '8': tone(beeppin, M1); break; //接收到'8',播放音符Do
-
-case '9': play(); break; //接收到'9',播放音乐
-
+    if (irrecv.decode(&results))
+    { //是否接收到红外遥控信号
+        IR_val = results.value;
+        Serial.println(IR_val, HEX); //串口打印数据
+        switch (IR_val)
+        {
+        case 0xFF629D:
+            advance();
+            break; //前进
+        case 0xFFA857:
+            back();
+            break; //后退
+        case 0xFF22DD:
+            turnL();
+            break; //左转
+        case 0xFFC23D:
+            turnR();
+            break; //右转
+        case 0xFF02FD:
+            stopp();
+            break; //停止
+        }
+        irrecv.resume(); // 接收下个数据
+    }
 }
 
+void advance()
+{ //小车前进
+    digitalWrite(MA, HIGH); //电机A正转
+    analogWrite(PWMA, speeds); //电机A速度为speeds
+    digitalWrite(MB, HIGH); //电机B正转
+    analogWrite(PWMB, speeds); //电机B速度为speeds
 }
 
-if (irrecv.decode(&results)) { //是否接收到红外遥控信号
-
-IR_val = results.value;
-
-Serial.println(IR_val, HEX); //串口打印数据
-
-switch (IR_val) {
-
-case 0xFF629D: advance(); break; //前进
-
-case 0xFFA857: back(); break; //后退
-
-case 0xFF22DD: turnL(); break; //左转
-
-case 0xFFC23D: turnR(); break; //右转
-
-case 0xFF02FD: stopp(); break; //停止
-
+void back()
+{ //小车后退
+    digitalWrite(MA, LOW); //电机A反转
+    analogWrite(PWMA, speeds); //电机A速度为speeds
+    digitalWrite(MB, LOW); //电机B反转
+    analogWrite(PWMB, speeds); //电机B速度为speeds
 }
 
-irrecv.resume();// 接收下个数据
-
+void turnL()
+{ //小车左旋转
+    digitalWrite(MB, LOW); //电机B反转
+    analogWrite(PWMB, speeds); //电机B速度为speeds
+    digitalWrite(MA, HIGH); //电机A正转
+    analogWrite(PWMA, speeds); //电机A速度为speeds
 }
 
+void turnL1()
+{ //小车左转弯
+    digitalWrite(MA, HIGH); //电机A正转
+    analogWrite(PWMA, 200); //电机A速度为200
+    digitalWrite(MB, HIGH); //电机B正转
+    analogWrite(PWMB, 100); //电机B速度为100
 }
 
-void advance() { //小车前进
-
-digitalWrite(MA, HIGH); //电机A正转
-
-analogWrite(PWMA, speeds); //电机A速度为speeds
-
-digitalWrite(MB, HIGH); //电机B正转
-
-analogWrite(PWMB, speeds); //电机B速度为speeds
-
+void turnR()
+{ //小车右旋转
+    digitalWrite(MA, LOW); //电机A反转
+    analogWrite(PWMA, speeds); //电机A速度为speeds
+    digitalWrite(MB, HIGH); //电机B正转
+    analogWrite(PWMB, speeds); //电机B速度为speeds
 }
 
-void back() { //小车后退
-
-digitalWrite(MA, LOW); //电机A反转
-
-analogWrite(PWMA, speeds); //电机A速度为speeds
-
-digitalWrite(MB, LOW); //电机B反转
-
-analogWrite(PWMB, speeds); //电机B速度为speeds
-
+void turnR1()
+{ //小车右转弯
+    digitalWrite(MA, HIGH); //电机A正转
+    analogWrite(PWMA, 100); //电机A速度为100
+    digitalWrite(MB, HIGH); //电机B正转
+    analogWrite(PWMB, 200); //电机B速度为200
 }
 
-void turnL() { //小车左旋转
-
-digitalWrite(MB, LOW); //电机B反转
-
-analogWrite(PWMB, speeds); //电机B速度为speeds
-
-digitalWrite(MA, HIGH); //电机A正转
-
-analogWrite(PWMA, speeds); //电机A速度为speeds
-
+void stopp()
+{ //小车停止
+    analogWrite(PWMA, 0); //电机A速度为0
+    analogWrite(PWMB, 0); //电机B速度为0
 }
 
-void turnL1() { //小车左转弯
-
-digitalWrite(MA, HIGH); //电机A正转
-
-analogWrite(PWMA, 200); //电机A速度为200
-
-digitalWrite(MB, HIGH); //电机B正转
-
-analogWrite(PWMB, 100); //电机B速度为100
-
+void speeds_a()
+{ //增速函数
+    int a_flag = 1; //用于while循环
+    while (a_flag)
+    {
+        Serial.println(speeds); //显示速度
+        if (speeds < 255)
+        { //最大增到255
+            speeds++;
+            delay(10); //调节增速的速度
+        }
+        blue_val = Serial.read();
+        if (blue_val == 'S')
+            a_flag = 0; //接收到‘S’停止加速
+    }
 }
 
-void turnR() { //小车右旋转
-
-digitalWrite(MA, LOW); //电机A反转
-
-analogWrite(PWMA, speeds); //电机A速度为speeds
-
-digitalWrite(MB, HIGH); //电机B正转
-
-analogWrite(PWMB, speeds); //电机B速度为speeds
-
+void speeds_d()
+{ //减速函数
+    int d_flag = 1; //用于while循环
+    while (d_flag)
+    {
+        Serial.println(speeds); //显示速度
+        if (speeds > 0)
+        { //最小减到0
+            speeds--;
+            delay(10); //调节减速的速度
+        }
+        blue_val = Serial.read();
+        if (blue_val == 'S')
+            d_flag = 0; //接收到‘S’停止减速
+    }
 }
 
-void turnR1() { //小车右转弯
-
-digitalWrite(MA, HIGH); //电机A正转
-
-analogWrite(PWMA, 100); //电机A速度为100
-
-digitalWrite(MB, HIGH); //电机B正转
-
-analogWrite(PWMB, 200); //电机B速度为200
-
-}
-
-void stopp() { //小车停止
-
-analogWrite(PWMA, 0); //电机A速度为0
-
-analogWrite(PWMB, 0); //电机B速度为0
-
-}
-
-void speeds_a() { //增速函数
-
-int a_flag = 1; //用于while循环
-
-while (a_flag) {
-
-Serial.println(speeds); //显示速度
-
-if (speeds < 255) { //最大增到255
-
-speeds++;
-
-delay(10); //调节增速的速度
-
-}
-
-blue_val = Serial.read();
-
-if (blue_val == 'S')a_flag = 0; //接收到‘S’停止加速
-
-}
-
-}
-
-void speeds_d() { //减速函数
-
-int d_flag = 1; //用于while循环
-
-while (d_flag) {
-
-Serial.println(speeds); //显示速度
-
-if (speeds > 0) { //最小减到0
-
-speeds--;
-
-delay(10); //调节减速的速度
-
-}
-
-blue_val = Serial.read();
-
-if (blue_val == 'S')d_flag = 0; //接收到‘S’停止减速
-
-}
-
-}
-
-int get_distance() { //超声波测距函数
-
-digitalWrite(trigPin, LOW);
-
-delayMicroseconds(2);
-
-digitalWrite(trigPin, HIGH); //给TRIG引脚至少10us的时间触发
-
-delayMicroseconds(10);
-
-digitalWrite(trigPin, LOW);
-
-distance = pulseIn(echoPin, HIGH) / 58; //检测脉冲宽度，并计算出距离
-
-Serial.print("distance:"); //串口打印出距离
-
-Serial.print(distance);
-
-Serial.println("cm");
-
+int get_distance()
+{ //超声波测距函数
+    digitalWrite(trigPin, LOW);
+    delayMicroseconds(2);
+    digitalWrite(trigPin, HIGH); //给TRIG引脚至少10us的时间触发
+    delayMicroseconds(10);
+    digitalWrite(trigPin, LOW);
+    distance = pulseIn(echoPin, HIGH) / 58; //检测脉冲宽度，并计算出距离
+    Serial.print("distance:"); //串口打印出距离
+    Serial.print(distance);
+    Serial.println("cm");
 }
 
 void buzzer() //蜂鸣器报警
-
 {
-
-tone(beeppin, 900);
-
-delay(100); //响声间隔100ms 听上去更急促
-
-noTone(beeppin);
-
-delay(100);
-
+    tone(beeppin, 900);
+    delay(100); //响声间隔100ms 听上去更急促
+    noTone(beeppin);
+    delay(100);
 }
 
-void follow() {
-
-int follow_flag = 1;
-
-while (follow_flag) {
-
-get_distance(); //调用测距函数
-
-l_val = digitalRead(l_sensorPin);//读取避障传感器的值
-
-r_val = digitalRead(r_sensorPin);
-
-if (distance <= 5 || l_val == 0 && r_val == 0) {
-
-back();
-
-}
-
-else if (distance > 5 && (l_val == 0 && r_val == 1)) {
-
-turnR();
-
-}
-
-else if (distance > 5 && (l_val == 1 && r_val == 0)) {
-
-turnL();
-
-}
-
-else if ((distance > 5 && distance <= 15) && (l_val == 1 && r_val ==
-1)) {
-
-stopp();
-
-}
-
-else if ((distance > 15 && distance <= 35) && (l_val == 1 && r_val ==
-1)) {
-
-advance();
-
-}
-
-else if (distance > 35 && (l_val == 1 && r_val == 1)) {
-
-stopp();
-
-}
-
-blue_val = Serial.read();
-
-if (blue_val == 'S') { //接收到‘S’退出循环，小车停止
-
-follow_flag = 0;
-
-stopp();
-
-}
-
-}
-
-}
-
-void avoid() {
-
-int avoid_flag = 1;
-
-while (avoid_flag) {
-
-get_distance(); //调用测距函数
-
-l_val = digitalRead(l_sensorPin);//读取避障传感器的值
-
-r_val = digitalRead(r_sensorPin);
-
-if (distance > 10) { //前方距离大于10cm时
-
-if (l_val == 1 && r_val == 1) { //如果左右两边都没有障碍物，前进
-
-advance();
-
-}
-
-else if (l_val == 0 && r_val == 1) {
-//否则如果左边有障碍物，右边没有，右转
-
-buzzer(); //报警
-
-turnR();
-
-}
-
-else if (l_val == 1 && r_val == 0) {
-//否则如果右边有障碍物，左边没有，左转
-
-buzzer(); //报警
-
-turnL();
-
-}
-
-else { //否则左右两边都有障碍物，后退再左转
-
-buzzer(); //报警
-
-back();
-
-delay(200);
-
-turnL();
-
-delay(200);
-
-}
-
-}
-
-else { //前方距离小于等于10cm时
-
-buzzer(); //报警
-
-if (l_val == 1 && r_val == 1) { //如果左右两边都没有障碍物，左转
-
-turnL();
-
-}
-
-else if (l_val == 0 && r_val == 1) { //如果左边有障碍物，右边没有，右转
-
-turnR();
-
-}
-
-else if (l_val == 1 && r_val == 0) { //如果右边有障碍物，左边没有，左转
-
-turnL();
-
-}
-
-else { //否则左右两边都有障碍物，后退再左转
-
-back();
-
-delay(200);
-
-turnL();
-
-delay(200);
-
-}
-
-}
-
-blue_val = Serial.read();
-
-if (blue_val == 'S') { //接收到‘S’退出循环，小车停止
-
-avoid_flag = 0;
-
-stopp();
-
-}
-
-}
-
-}
-
-void prison() {
-
-int prison_flag = 1;
-
-while (prison_flag) {
-
-L_val = digitalRead(L_pin); //读取左边传感器的值
-
-M_val = digitalRead(M_pin); //读中间传感器的值
-
-R_val = digitalRead(R_pin); //读取右边传感器的值
-
-if ( L_val == 0 && M_val == 0 && R_val == 0 ) { //当没有检测到黑线时前进
-
-advance();
-
-}
-
-else { //否则任一巡线传感器检测到黑线就后退再左转
-
-back();
-
-delay(500);
-
-turnL();
-
-delay(300);
-
-}
-
-blue_val = Serial.read();
-
-if (blue_val == 'S') { //接收到‘S’退出循环，小车停止
-
-prison_flag = 0;
-
-stopp();
-
-}
-
-}
-
-}
-
-void track() {
-
-int track_flag = 1;
-
-while (track_flag) {
-
-L_val = digitalRead(L_pin); //读取左边传感器的值
-
-M_val = digitalRead(M_pin); //读中间传感器的值
-
-R_val = digitalRead(R_pin); //读取右边传感器的值
-
-if (M_val == 1) { //中间检测到黑线
-
-if (L_val == 1 && R_val == 0) { //如果左边检测到黑线，右边没有，左转
-
-turnL();
-
-}
-
-else if (L_val == 0 && R_val == 1) {
-//否则如果右边检测到黑线，左边没有，右转
-
-turnR();
-
-}
-
-else { //否则前进
-
-advance();
-
-}
-
-}
-
-else { //中间没检测到黑线
-
-if (L_val == 1 && R_val == 0) { //如果左边检测到黑线，右边没有，左转
-
-turnL();
-
-}
-
-else if (L_val == 0 && R_val == 1) {
-//否则如果右边检测到黑线，左边没有，右转
-
-turnR();
-
-}
-
-else { //否则停止
-
-stopp();
-
-}
-
-}
-
-blue_val = Serial.read();
-
-if (blue_val == 'S') { //接收到‘S’退出循环，小车停止
-
-track_flag = 0;
-
-stopp();
-
-}
-
-}
-
-}
-
-void play() {
-
-for (int x = 0; x < length; x++)
-
+void follow()
 {
+    int follow_flag = 1;
+    while (follow_flag)
+    {
+        get_distance(); //调用测距函数
+        l_val = digitalRead(l_sensorPin); //读取避障传感器的值
+        r_val = digitalRead(r_sensorPin);
+        if (distance <= 5 || l_val == 0 && r_val == 0)
+        {
+            back();
+        }
+        else if (distance > 5 && (l_val == 0 && r_val == 1))
+        {
+            turnR();
+        }
+        else if (distance > 5 && (l_val == 1 && r_val == 0))
+        {
+            turnL();
+        }
+        else if ((distance > 5 && distance <= 15) && (l_val == 1 && r_val == 1))
+        {
+            stopp();
+        }
+        else if ((distance > 15 && distance <= 35) && (l_val == 1 && r_val == 1))
+        {
+            advance();
+        }
+        else if (distance > 35 && (l_val == 1 && r_val == 1))
+        {
+            stopp();
+        }
 
-tone(beeppin, tune\[x\]);
-
-delay(500 \* durt\[x\]);
-//这里用来根据节拍调节延时，500这个指数可以自己调整，在该音乐中，我发现用500比较合适。
-
-noTone(beeppin);
-
-blue_val = Serial.read(); //再次接收
-
-if (blue_val == '9')break; //再次按下播放音乐键，停止播放
-
+        blue_val = Serial.read();
+        if (blue_val == 'S')
+        { //接收到‘S’退出循环，小车停止
+            follow_flag = 0;
+            stopp();
+        }
+    }
 }
 
+void avoid()
+{
+    int avoid_flag = 1;
+    while (avoid_flag)
+    {
+        get_distance(); //调用测距函数
+        l_val = digitalRead(l_sensorPin); //读取避障传感器的值
+        r_val = digitalRead(r_sensorPin);
+        if (distance > 10)
+        { //前方距离大于10cm时
+            if (l_val == 1 && r_val == 1)
+            { //如果左右两边都没有障碍物，前进
+                advance();
+            }
+            else if (l_val == 0 && r_val == 1)
+            { //否则如果左边有障碍物，右边没有，右转
+                buzzer(); //报警
+                turnR();
+            }
+            else if (l_val == 1 && r_val == 0)
+            { //否则如果右边有障碍物，左边没有，左转
+                buzzer(); //报警
+                turnL();
+            }
+            else
+            { //否则左右两边都有障碍物，后退再左转
+                buzzer(); //报警
+                back();
+                delay(200);
+                turnL();
+                delay(200);
+            }
+        }
+        else
+        { //前方距离小于等于10cm时
+            buzzer(); //报警
+            if (l_val == 1 && r_val == 1)
+            { //如果左右两边都没有障碍物，左转
+                turnL();
+            }
+            else if (l_val == 0 && r_val == 1)
+            { //如果左边有障碍物，右边没有，右转
+                turnR();
+            }
+            else if (l_val == 1 && r_val == 0)
+            { //如果右边有障碍物，左边没有，左转
+                turnL();
+            }
+            else
+            { //否则左右两边都有障碍物，后退再左转
+                back();
+                delay(200);
+                turnL();
+                delay(200);
+            }
+        }
+
+        blue_val = Serial.read();
+        if (blue_val == 'S')
+        { //接收到‘S’退出循环，小车停止
+            avoid_flag = 0;
+            stopp();
+        }
+    }
+}
+
+void prison()
+{
+    int prison_flag = 1;
+    while (prison_flag)
+    {
+        L_val = digitalRead(L_pin); //读取左边传感器的值
+        M_val = digitalRead(M_pin); //读中间传感器的值
+        R_val = digitalRead(R_pin); //读取右边传感器的值
+        if (L_val == 0 && M_val == 0 && R_val == 0)
+        { //当没有检测到黑线时前进
+            advance();
+        }
+        else
+        { //否则任一巡线传感器检测到黑线就后退再左转
+            back();
+            delay(500);
+            turnL();
+            delay(300);
+        }
+
+        blue_val = Serial.read();
+        if (blue_val == 'S')
+        { //接收到‘S’退出循环，小车停止
+            prison_flag = 0;
+            stopp();
+        }
+    }
+}
+
+void track()
+{
+    int track_flag = 1;
+    while (track_flag)
+    {
+        L_val = digitalRead(L_pin); //读取左边传感器的值
+        M_val = digitalRead(M_pin); //读中间传感器的值
+        R_val = digitalRead(R_pin); //读取右边传感器的值
+        if (M_val == 1)
+        { //中间检测到黑线
+            if (L_val == 1 && R_val == 0)
+            { //如果左边检测到黑线，右边没有，左转
+                turnL();
+            }
+            else if (L_val == 0 && R_val == 1)
+            { //否则如果右边检测到黑线，左边没有，右转
+                turnR();
+            }
+            else
+            { //否则前进
+                advance();
+            }
+        }
+        else
+        { //中间没检测到黑线
+            if (L_val == 1 && R_val == 0)
+            { //如果左边检测到黑线，右边没有，左转
+                turnL();
+            }
+            else if (L_val == 0 && R_val == 1)
+            { //否则如果右边检测到黑线，左边没有，右转
+                turnR();
+            }
+            else
+            { //否则停止
+                stopp();
+            }
+        }
+
+        blue_val = Serial.read();
+        if (blue_val == 'S')
+        { //接收到‘S’退出循环，小车停止
+            track_flag = 0;
+            stopp();
+        }
+    }
+}
+
+void play()
+{
+    for (int x = 0; x < length; x++)
+    {
+        tone(beeppin, tune[x]);
+        delay(500 * durt[x]); //这里用来根据节拍调节延时，500这个指数可以自己调整，在该音乐中，我发现用500比较合适。
+        noTone(beeppin);
+
+        blue_val = Serial.read(); //再次接收
+        if (blue_val == '9')
+            break; //再次按下播放音乐键，停止播放
+    }
 }
 ```
 好了，蓝牙多功能控制智能车的程序都已经编写好了，上传程序，实际操作下看看效果。（在上传程序代码前，需要把蓝牙模块取下，否则代码会上传失败。需要上传代码成功后，再连接蓝牙模块。）
